@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fuel Management System</title>
+  <style>
+    /*When we get to it*/
+  </style>
+</head>
+<body>
+  <div id="loginPage">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit">Login</button>
+    </form>
+    <button id="registerBtn">Register</button>
+  </div>
+
+  <div id="registrationPage" style="display: none;">
+    <h2>Client Registration</h2>
+    <form id="registrationForm">
+      <input type="text" id="regUsername" placeholder="Username" required>
+      <input type="password" id="regPassword" placeholder="Password" required>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+
+  <div id="profilePage" style="display: none;">
+    <h2>Client Profile Management</h2>
+    <form id="profileForm">
+      <input type="text" id="fullName" placeholder="Full Name" maxlength="50" required>
+      <input type="text" id="address1" placeholder="Address 1" maxlength="100" required>
+      <input type="text" id="address2" placeholder="Address 2" maxlength="100">
+      <input type="text" id="city" placeholder="City" maxlength="100" required>
+      <select id="state" required>
+        <!-- Options for the dropdown -->
+      </select>
+      <input type="text" id="zipcode" placeholder="Zipcode" pattern="[0-9]{5,9}" required>
+      <button type="submit">Save Profile</button>
+    </form>
+  </div>
+
+  <div id="fuelQuotePage" style="display: none;">
+    <h2>Fuel Quote Form</h2>
+    <form id="fuelQuoteForm">
+      <input type="number" id="gallonsRequested" placeholder="Gallons Requested" required>
+      <input type="text" id="deliveryAddress" placeholder="Delivery Address" readonly>
+      <input type="date" id="deliveryDate" required>
+      <input type="number" id="suggestedPrice" placeholder="Suggested Price/Gallon" readonly>
+      <input type="number" id="totalAmountDue" placeholder="Total Amount Due" readonly>
+      <button type="submit">Submit Quote</button>
+    </form>
+  </div>
+
+  <div id="fuelQuoteHistoryPage" style="display: none;">
+    <h2>Fuel Quote History</h2>
+    <table id="quoteHistoryTable">
+      <thead>
+        <tr>
+          <th>Gallons Requested</th>
+          <th>Delivery Address</th>
+          <th>Delivery Date</th>
+          <th>Suggested Price/Gallon</th>
+          <th>Total Amount Due</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Quote history rows -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    //When we get to this point
+  </script>
+</body>
+</html>
