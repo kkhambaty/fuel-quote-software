@@ -74,7 +74,23 @@
   </div>
 
   <script>
-    //When we get to this point
+    const loginPage = document.getElementById('loginPage');
+    const registrationPage = document.getElementById('registrationPage');
+    const registerBtn = document.getElementById('registerBtn');
+
+    registerBtn.addEventListener('click', function() {
+    loginPage.style.display = 'none';
+    registrationPage.style.display = 'block'; //this is to make us client be able to go to the reg page
+  });
+
+    const backToLoginBtn = document.createElement('button'); //to go back to login page from reg page
+    backToLoginBtn.textContent = 'Back to Login';
+    registrationPage.appendChild(backToLoginBtn);
+
+    backToLoginBtn.addEventListener('click', function() {
+    loginPage.style.display = 'block';
+    registrationPage.style.display = 'none';
+  });
   </script>
 </body>
 </html>
