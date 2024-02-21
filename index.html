@@ -6,7 +6,25 @@
   <title>Fuel Management System</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    /*When we get to it*/
+    .button-container {
+      display: flex;
+      justify-content: center; /*lmk if this is okay*/
+    }
+
+    .button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background-color: #032d39;
+      color: #fff;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background: #022029;
+    }
   </style>
 </head>
 <body>
@@ -27,6 +45,11 @@
       <input type="password" id="regPassword" placeholder="Password" required>
       <button type="submit">Register</button>
     </form>
+  </div>
+
+  <div class="button-container">
+    <a href="profilePage.html" class="button">Profile Page</a>
+    <a href="fuelQuoteHistory.html" class="button">Fuel Quote History</a>
   </div>
 
   <div id="profilePage" style="display: none;">
