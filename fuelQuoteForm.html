@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Fuel Quote</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            label {
+                color:#032d39;
+                font-weight:bold;
+            }
+            #getQuote {
+                font-size: 1rem;
+                margin-top: 1.8rem;
+                padding: 10px 0;
+                border-radius: 20px;
+                outline: none;
+                border: none;
+                width: 50%;
+                color: beige;
+                cursor: pointer;
+                background: #032d39;
+            }
+            .formTitle {
+                margin-top: 50px;
+                margin-left:1rem;
+                color: beige;
+                font-family: 'Times New Roman';
+            }
+            .formDescTitle {
+                color: beige;
+                font-family: 'Times New Roman';
+            }
+            #quoteForm{
+                width: 250px;
+                height: 300px;
+                margin-left: 1rem;
+                background-color: beige;
+                position: left;
+                top: 90px;
+                left: 800px;
+                border-radius: 10px;
+                padding: 25px;
+            }
+            .quoteDesc {
+                width: 800px;
+                height: auto;
+                margin: auto;
+                color: beige;
+                position: absolute;
+                top: 110px;
+                left: 300px;
+            }
+            .quoteDesc .desc{
+                padding-left: 20px;
+                padding-bottom: 25px;
+                font-family: arial;
+                font-size:larger;
+                letter-spacing: 1.2px;
+                line-height: 30px;
+            }
+            #finalQuote{
+                color:#032d39;
+                font-weight: bold;
+                padding-top:5px;
+            }
+            .button-container {
+            display: flex;
+            justify-content: center;
+            }
+
+            .button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #032d39;
+            color: #fff;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+
+            .button:hover {
+            background: #022029;
+            }
+        </style>
+    </head>
+
+<body>
+    <div class="button-container">
+        <a href="index.html" class="button">Home</a>
+        <a href="profilePage.html" class="button">Profile Page</a>
+        <a href="fuelQuoteHistory.html" class="button">Fuel Quote History</a>
+    </div>
+    <h1 class="formTitle">Fuel Quote Form</h1>
+
+    <div id="quoteForm">
+    <form>
+        <label title="Number of gallons you would like to order">Gallons Requested:
+                <input type="number" id="gallons" name="gallons" required>
+        </label>
+        <br>
+        <label title="The delivery address is the address retrieved from your user profile. For demo purposes this is a dummy value.">Delivery Address:
+            <input type="text" id="address" name="address" value="123 Main St" readonly>
+        </label>
+        <br>
+        <label title="When you would like us to deliver your fuel">Delivery Date:
+            <input type="date" id="delivery" name="delivery" required>
+        </label>
+        <br>
+        <label title="Suggested pricing rate per gallon. Determined by pricing module. For demo purposes this is $4.00">Suggested Price/Gallon:
+            <input type="number" step="0.01" id="pricing" name="pricing" value="4.00" readonly>
+        </label>
+        <br>
+
+        <button type="button" id="getQuote" onclick="quoteTotal()">Get quote</button>
+    </form>
+    <div id="finalQuote"></div>
+
+    </div>
+    <div class="quoteDesc">
+        <h1 class="formDescTitle">
+          Fuel for All
+        </h1>
+        <p class="desc">Fill out our form to receive a pricing quote on your desired quantity of gallons.<br>
+            This quote will be saved to your "History" page so that you can view it along with other fuel quotes you have generated before.<br>
+            Decide a quantity that fits your company's needs and budget.
+      </div>
+
+    <script>
+        function quoteTotal() {
+            //Get gallons requested and pricing rate
+            var gallons = parseFloat(document.getElementById('gallons').value);
+            var pricing = parseFloat(document.getElementById('pricing').value);
+            
+            //Calculation
+            var quote = gallons * pricing;
+
+            //Display for user
+            document.getElementById('finalQuote').innerHTML = 'Total amount due: $' + quote;
+        }
+    </script>
+
+</body>
+</html>
