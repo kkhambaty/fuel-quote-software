@@ -37,7 +37,7 @@ body {
 }
 #loginForm input, #registrationForm input {
   width: 200px;
-  height: 35px;
+  height: 30px;
   outline: none;
   background: transparent;
   border-bottom: 1px solid #032d39;
@@ -97,40 +97,22 @@ td {
   color: beige;
 }
 
-.header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 20px 100px;
-  background: transparent;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  z-index: 100;
-
+.navbar {
+  background-color:#032d39; 
+  padding: 10px 0;
+  text-align: center;
 }
-.navbar a{
-  position: relative;
-  font-size: 18px;
-  color: beige;
-  font-weight: 500;
+
+.navbar a {
+  color: #ffffff;
+  padding: 10px 15px;
   text-decoration: none;
-  margin-left: 40px;
+  display: inline-block;
+}
 
-}
-.navbar a::before {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: beige;
-  transition: .3s;
-}
-.navbar a:hover::before {
-  width: 100%;
+.navbar a:hover {
+  background-color: #022029; /* Button hover color */
+  border-radius: 5px;
 }
 .content {
   width: 1200px;
