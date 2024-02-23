@@ -39,13 +39,11 @@ body::after {
 
 /* Profile display and edit form styles */
 #profileDisplay, #profileEdit {
-    background-color: #ffffff; /*Light background for content */
+    background-color: beige;  
     color: #333;
     padding: 20px;
     border-radius: 10px;
-    /* margin: 20px auto; */
     width: 100%;
-    /* max-width: 800px; Maximum width of content area */
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     flex-grow: 1; 
     justify-content: center;
@@ -67,11 +65,6 @@ body::after {
     position: relative;
   }
   
-/*   
-
-  .content {
-    padding-top: 50px; /* Give some space for the fixed navbar 
-  } */
 
 h2 {
     background-color: #032d39; /* Matching the navbar color */
