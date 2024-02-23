@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Fuel Quote</title>
+        <title>Fuel Quote Form</title>
         <link rel="stylesheet" href="style.css">
         <style>
             label {
@@ -95,30 +95,28 @@
     </div>
     <h1 class="formTitle">Fuel Quote Form</h1>
 
+    <!--The fuel quote form. No back-end functionality yet so the pricing rate and user delivery address are hardcoded examples-->
     <div id="quoteForm">
-    <form>
-        <label title="Number of gallons you would like to order">Gallons Requested:
+        <form id="fuelQuoteForm" onsubmit="return validateForm()">
+            <label for="gallons" title="Number of gallons you would like to order">Gallons Requested: </label>
                 <input type="number" id="gallons" name="gallons" required>
-        </label>
-        <br>
-        <label title="The delivery address is the address retrieved from your user profile. For demo purposes this is a dummy value.">Delivery Address:
-            <input type="text" id="address" name="address" value="123 Main St" readonly>
-        </label>
-        <br>
-        <label title="When you would like us to deliver your fuel">Delivery Date:
-            <input type="date" id="delivery" name="delivery" required>
-        </label>
-        <br>
-        <label title="Suggested pricing rate per gallon. Determined by pricing module. For demo purposes this is $4.00">Suggested Price/Gallon:
-            <input type="number" step="0.01" id="pricing" name="pricing" value="4.00" readonly>
-        </label>
-        <br>
+            <br>
+            <label for="address" title="The delivery address is the address retrieved from your user profile. For demo purposes this is a dummy value.">Delivery Address: </label>
+                <input type="text" id="address" name="address" value="123 Main St" readonly>
+            <br>
+            <label for="delivery" title="When you would like us to deliver your fuel">Delivery Date: </label>
+                <input type="date" id="delivery" name="delivery">
+            <br>
+            <label for="pricing" title="Suggested pricing rate per gallon. Determined by pricing module. For demo purposes this is $4.00">Suggested Price/Gallon: </label>
+                <input type="number" step="0.01" id="pricing" name="pricing" value="4.00" readonly>
+            <br>
 
-        <button type="button" id="getQuote" onclick="quoteTotal()">Get quote</button>
-    </form>
-    <div id="finalQuote"></div>
+            <button type="submit" id="getQuote">Get quote</button>
+        </form>
+        <div id="finalQuote"></div>
 
     </div>
+    <!--The accompanying side description-->
     <div class="quoteDesc">
         <h1 class="formDescTitle">
           Fuel for All
@@ -126,9 +124,23 @@
         <p class="desc">Fill out our form to receive a pricing quote on your desired quantity of gallons.<br>
             This quote will be saved to your "History" page so that you can view it along with other fuel quotes you have generated before.<br>
             Decide a quantity that fits your company's needs and budget.
-      </div>
+    </div>
 
     <script>
+        //Form validation for required "Gallons Requested" field before calling the quoteTotal() function
+        function validateForm() {
+
+            var form = document.getElementById('fuelQuoteForm');
+
+            //Is the form valid
+            if (form.checkValidity()) {
+                quoteTotal();
+            }
+
+            return false;
+        }
+
+        //Calculates quote total using the pricing rate. The pricing rate will be sourced from the pricing module at a later date
         function quoteTotal() {
             //Get gallons requested and pricing rate
             var gallons = parseFloat(document.getElementById('gallons').value);
