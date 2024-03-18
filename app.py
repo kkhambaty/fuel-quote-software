@@ -1,8 +1,9 @@
-from flask import Flask, jsonify, request, render_template
-from login.login import login_bp
-from modules.profile import profile_bp 
+from flask import Flask, jsonify, request, render_template, session
+from modules.login.login import login_bp
+from modules.profile.__init___1 import profile_bp 
 
 app = Flask(__name__)
+app.config['TESTING'] = True
 
 @app.route('/')
 def home():

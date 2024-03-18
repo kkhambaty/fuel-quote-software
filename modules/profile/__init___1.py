@@ -4,8 +4,8 @@ from flask import Blueprint, jsonify, request
 profile_bp = Blueprint('profile', __name__)
 
 profiles = {
-    1: { 'fullName': 'John Doe', 'address 1': '123 Elm St', 'address 2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'}
-    # Add more predefined profiles as needed
+    1: { 'fullName': 'John Doe', 'address 1': '123 Elm St', 'address 2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'},
+    2: { 'fullName': 'Clair Boyle', 'address 1': '123 Fire St', 'address 2' : 'Suite 300', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12234-4321'}
 }
 
 @profile_bp.route('/<int:user_id>', methods=['GET', 'POST'])
