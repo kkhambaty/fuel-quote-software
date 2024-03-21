@@ -11,6 +11,10 @@ app.config['TESTING'] = True
 def home():
     return 'Fuel Quote Server is up and running!'
 
+@app.route('/profile-page')
+def profile_page():
+    return render_template('profilePage.html')
+
 def index():
     if 'logged_in' in session:
         return f"Hello, {session['username']}! You are logged in. <a href='/login/logout'>Logout</a>"
