@@ -1,6 +1,14 @@
 import pytest
 from app import app 
 
+def setup_app():
+    app.config['TESTING'] = True
+    app.config['SERVER_NAME'] = 'localhost.localdomain'
+    return app
+
+app = setup_app()
+client = app.test_client()
+
 @pytest.fixture
 def client():
     app.config.update({

@@ -1,6 +1,6 @@
 from flask import Flask, jsonify, request, render_template, session
 from modules.login.login import login_bp
-from modules.profile.__init___1 import profile_bp 
+from modules.profile.profile_page import profile_bp 
 
 app = Flask(__name__)
 app.config['TESTING'] = True
