@@ -51,19 +51,19 @@ def profile(user_id):
 #         return jsonify({"error": "Failed to create profile"}), 400
 
 
-def add_profile(user_id, profile_data):
-    """
-    Adds a new profile to the profiles dictionary.
+# def add_profile(user_id, profile_data):
+#     """
+#     Adds a new profile to the profiles dictionary.
     
-    :param user_id: The ID for the new profile.
-    :param profile_data: A dictionary containing the data for the new profile.
-    :return: True if the profile was added successfully, False otherwise.
-    """
-    if user_id not in profiles:
-        profiles[user_id] = profile_data
-        return True
-    else:
-        return False
+#     :param user_id: The ID for the new profile.
+#     :param profile_data: A dictionary containing the data for the new profile.
+#     :return: True if the profile was added successfully, False otherwise.
+#     """
+#     if user_id not in profiles:
+#         profiles[user_id] = profile_data
+#         return True
+#     else:
+#         return False
 
 def find_profile_by_id(user_id):
     return profiles.get(user_id)
