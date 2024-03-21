@@ -1,3 +1,8 @@
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchAndDisplayProfile();
+});
+
 function toggleEdit(showEdit) {
     var displaySection = document.getElementById('profileDisplay');
     var editSection = document.getElementById('profileEdit');
@@ -46,7 +51,8 @@ function saveProfile() {
     .catch(error => {
         console.error('Error:', error);
         // Handle error, such as showing an error message to the user
-    });
+    }); //store this in a text file
+
     // document.getElementById('displayName').textContent = document.getElementById('fullName').value;
     // document.getElementById('displayAddress1').textContent = document.getElementById('address1').value;
     // document.getElementById('displayAddress2').textContent = document.getElementById('address2').value;
@@ -55,6 +61,33 @@ function saveProfile() {
     // document.getElementById('displayZipcode').textContent = document.getElementById('zipcode').value;
 
     // hideEditForm(); // Hide the form after saving
+}
+
+function fetchAndDisplayProfile() {
+    const userId = getCurrentUserId(); // Assume this function gets the current user's ID
+    const url = `http://localhost:5000/profile/${userId}`;
+
+    fetch(url)
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Profile Data:', data);
+        // Update the UI elements with the fetched profile data
+        document.getElementById('displayName').textContent = data.fullName || '';
+        document.getElementById('displayAddress1').textContent = data.address1 || '';
+        document.getElementById('displayAddress2').textContent = data.address2 || '';
+        document.getElementById('displayCity').textContent = data.city || '';
+        document.getElementById('displayState').textContent = data.state || '';
+        document.getElementById('displayZipcode').textContent = data.zipcode || '';
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Handle error, such as displaying a message to the user
+    });
 }
 
 function getCurrentUserId() {
