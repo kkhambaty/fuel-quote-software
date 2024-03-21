@@ -34,21 +34,21 @@ def profile(user_id):
             return jsonify({"error": "Profile update failed"}), 400
     
 
-@profile_bp.route('/create/<int:user_id>', methods=['POST'])
-def create_profile(user_id):
-    profile_data = request.json
+# @profile_bp.route('/create/<int:user_id>', methods=['POST'])
+# def create_profile(user_id):
+#     profile_data = request.json
 
-    if profile_exists(user_id):
-        return jsonify({"error": "Profile already exists"}), 409  # Conflict
+#     if profile_exists(user_id):
+#         return jsonify({"error": "Profile already exists"}), 409  # Conflict
 
-    if not valid_profile_data(profile_data):
-        return jsonify({"error": "Invalid profile data"}), 400
+#     if not valid_profile_data(profile_data):
+#         return jsonify({"error": "Invalid profile data"}), 400
 
-    success = add_profile(user_id, profile_data)
-    if success:
-        return jsonify({"message": "Profile created successfully"}), 201  # Created
-    else:
-        return jsonify({"error": "Failed to create profile"}), 400
+#     success = add_profile(user_id, profile_data)
+#     if success:
+#         return jsonify({"message": "Profile created successfully"}), 201  # Created
+#     else:
+#         return jsonify({"error": "Failed to create profile"}), 400
 
 
 def add_profile(user_id, profile_data):

@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    background: url('gasoline.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+body::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(0, 0, 0, 0.5),
+    rgba(0, 0, 0, 0.5)); /* Black overlay with 50% opacity */
+    z-index: -1; /* Ensure the overlay is behind the content */
+}
+
+/* Navbar styles */
+.navbar {
+    background-color:#032d39; 
+    padding: 10px 0;
+    text-align: center;
+}
+
+.navbar a {
+    color: #ffffff;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.navbar a:hover {
+    background-color: #022029; /* Button hover color */
+    border-radius: 5px;
+}
+
+/* Profile display and edit form styles */
+#profileDisplay, #profileEdit {
+    background-color: beige;  
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    flex-grow: 1; 
+    justify-content: center;
+    } 
+
+  .outer-container {
+    display: flex;
+    min-height: 100vh;
+  }
+  
+  /* Sidebar that contains profile information */
+  .sidebar {
+    flex: 0.40;
+    background-color: #262626; /* Sidebar background color, adjust as needed */
+    color: #fff;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  
+
+h2 {
+    background-color: #032d39; /* Matching the navbar color */
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+p, label {
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+}
+
+input[type="text"], select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid#032d39;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #032d39;
+    color: #F5F5DC;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.editButtonDiv {
+    margin: 0;
+    position: absolute;
+    top: 80%;
+    left: 45%;
+  }
