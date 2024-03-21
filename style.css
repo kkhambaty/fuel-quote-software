@@ -3,16 +3,15 @@ html {
   width: 100%;
 }
 * {
-  margin: 0;
-  padding: 0;
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
 body {
+  margin: 0;
+  padding: 0;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5),
   rgba(0, 0, 0, 0.5)), url("gasoline.jpg");
   background-position: center;
-  background-repeat: none;
   background-size: cover;
 }
 #registrationPage, #loginPage {
@@ -21,19 +20,19 @@ body {
   height: 380px;
   background-color: beige;
   position: absolute;
-  top: 90px;
-  left: 800px;
+  top: 110px;
+  left: 550px;
   border-radius: 10px;
   padding: 25px;
 }
 
 #loginPage h2, #registrationPage h2{
   width: 200px;
-  font-family: sans-serif;
+  font-family: Georgia, 'Times New Roman', Times, serif;
   text-align: center;
   color: #032d39;
   font-size: 30px;
-  padding: 8px;
+  padding: 1px;
 }
 #loginForm input, #registrationForm input {
   width: 200px;
@@ -48,20 +47,9 @@ body {
   font-size: 15px;
   letter-spacing: 1px;
   margin-top: 30px;
-  font-family: sans-serif;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
-button {
-  font-size: 1rem;
-  margin-top: 1.8rem;
-  padding: 10px 0;
-  border-radius: 20px;
-  outline: none;
-  border: none;
-  width: 90%;
-  color: beige;
-  cursor: pointer;
-  background: #032d39;
-}
+
 button:hover {
   background: #022029;
 }
@@ -93,12 +81,17 @@ td {
   background-color: beige;
 }
 .histHeader {
+  text-align: center;
   margin-top: 80px;
   color: beige;
 }
 
 .navbar {
-  background-color:#032d39; 
+  position: fixed;
+  top: 0;
+  width: 100%; /* Ensure the navbar spans the entire width of the viewport */
+  z-index: 1000; /* Ensure the navbar appears above other content */
+  background-color: #032d39; 
   padding: 10px 0;
   text-align: center;
 }
@@ -114,26 +107,38 @@ td {
   background-color: #022029; /* Button hover color */
   border-radius: 5px;
 }
-.content {
-  width: 1200px;
-  height: auto;
+
+.content { 
+  padding-top: 60px;
   margin: auto;
   color: beige;
-  position: absolute;
-  top: 110px;
-  left: 20px;
+  left: 0px;
+  background-size: 1500px 700px;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5),
+  rgba(0, 0, 0, 0.5)), url("businesspartner.jpg");
+  background-repeat: no-repeat;
 }
-.content .par{
-  padding-left: 20px;
-  padding-bottom: 25px;
-  font-family: arial;
-  letter-spacing: 1.2px;
-  line-height: 30px;
-}
-.content h1{
-  font-family: 'Times New Roman';
-  font-size: 50px;
-  padding-left: 20px;
 
+.content h1 {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-size: 48px;
+  padding-top: 8px;
+  padding-left: 20px;
   letter-spacing: 2px;
+}
+
+.content .par {
+  padding-left: 20px;
+  font-size: 15px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  letter-spacing: 1px;
+  line-height: 1.5;
+}
+
+
+footer {
+  background-color: #032d39;
+  color: beige;
+  padding: 18px;
+  text-align: center;
 }

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .hpbtn {
+            color: beige;
+            background-color: #032d39;
+            outline: none;
+            border: none;
+            font-size: 15px;
+            padding: 9px 13px;
+            margin: 30px 20px;
+        }
+
+        body {
+            background-image: none;
+        }
+
+        .subhead h2{
+            text-align: center;
+            font-size: 30px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #032d39;
+        }
+        .subhead {
+            text-align: center;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #032d39;
+        }
+        .about-us-heading{
+            width: 90%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin: 20px auto;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .about-us-heading h1{
+            font-size: 50px;
+            color: #032d39;
+            margin-bottom: 25px;
+            position: relative;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        .about-us-heading h1::after{
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 4px;
+            display: block;
+            margin: 0 auto;
+            background-color: #022029;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+        
+        .container {
+            width: 90%;
+            height: fit-content;
+            margin: 0 auto;
+            padding: 10px 20px;
+            background-color: beige;
+        }
+
+        .about{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .about-img {
+            flex: 1;
+            margin-right: 35px;
+            overflow: hidden;
+        }
+        .about-img img{
+            max-width: 100%;
+            height: 450px;
+            display: block;
+        }
+        .about-content {
+            flex:1;
+
+        }
+        .about-content h2{
+            font-size: 23px;
+            margin-bottom: 15px;
+            color: #022029;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+        }
+
+        .about-content p{
+            font-size:  20px;
+            margin-bottom: 18px;
+            line-height: 1.5;
+            color: #032d39;
+            font-family: Verdana, Geneva, Tahoma, sans-serif'
+        }
+        
+        .wrapper {
+            max-width: 75%;
+            margin: auto;
+            color: #032d39;
+        }
+
+        .wrapper > p, .wrapper > h1 {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        .wrapper > h1 {
+            letter-spacing: 3px;
+        }
+
+        .accordion {
+            background-color: white;
+            color: rgba(0, 0, 0, 0.8);
+            cursor: pointer;
+            font-size: 1.2rem;
+            width: 100%;
+            padding: 2rem 2.5rem;
+            border: none;
+            outline: none;
+            transition: 0.4s;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+
+        .accordion i {
+            font-size: 1.6rem;
+        }
+
+        .active, .accordion:hover {
+            background-color: #f1f7f5;
+        }
+
+        .pannel {
+            padding: 0 2rem 2.5rem 2rem;
+            background-color: white;
+            overflow: hidden;
+            background-color: #f1f7f5;
+            display: none;
+        }
+
+        .pannel p {
+            color: rgba(0, 0, 0, 0.7);
+            font-size: 1.2rem;
+            line-height: 1.4;
+        }
+
+        .faq {
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+        }
+
+        .faq.active {
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <a href="homepage.html">Home</a>
+            <a href="profilePage.html">Profile Page</a>
+            <a href="fuelQuoteForm.html">Fuel Quote Form</a>
+            <a href="fuelQuoteHistory.html">Fuel Quote History</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Navigate the Future:<br>Fuel Rate Forecasts,<br>Made Simple.</h1>
+        <p class="par"> Our software simplifies fuel rate predictions, <br>
+            considering client location, history, and requested <br>gallons,
+            while also factoring in your profit margin.<br>With our technology,
+            navigate pricing confidently, <br>fostering stronger partnerships <br>for success.</p>
+        <a href="fuelQuoteForm.html">
+            <button type="submit" class="hpbtn">Get a free quote &nbsp; &#10148;</button>
+        </a>
+
+    </div>
+
+    <div class="subhead">
+            <h2>
+                Stay Ahead with Accurate Predictions and Hassle-Free Planning
+            </h2>
+            <p>
+                Our cutting-edge forecasting technology ensures that you're always one step ahead, <br>
+                providing you with timely and reliable predictions to optimize your fuel planning. <br>
+                Say goodbye to uncertainty and surprises, as our transparent pricing model and <br>
+                user-friendly platform empower you to make informed decisions with confidence. <br>
+                With us, managing your fuel needs has never been easier.
+            </p>
+         </div>
+
+    
+        
+        <div class="about-us-heading">
+            <h1>About us</h1>
+        </div>
+        
+        <div class="container">
+            <section class="about">
+                <div class="about-img">
+                    <img src="about.jpg" alt="man with digital tablet">
+                </div>
+        
+        
+                <div class="about-content">
+                    <h2> Empowering Decision-Makers Worldwide with Precise Fuel Rate Predictions </h2>
+                    <p>At Fuel It Up, we're dedicated to revolutionizing the way businesses navigate the
+                        complexities of fuel rate forecasting. With a commitment to accuracy, transparency, and
+                        innovation, we empower our clients to make informed decisions and stay ahead of the curve
+                        in an ever-changing market.</p>
+                </div>
+            </section>
+        </div>
+
+    <div class="wrapper">
+        <h1>Frequently Asked Questions</h1>
+
+        <div class="faq">
+            <button class="accordion">
+                How does the fuel rate prediction software work?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    Our software utilizes advanced algorithms and
+                    historical data analysis to predict fuel rates based on various
+                    factors such as client location, purchase history, requested gallons,
+                    and company profit margin. These predictions help clients make informed
+                    decisions regarding their fuel purchases.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="accordion">
+                What factors influence the fuel rate prediction?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    The fuel rate prediction takes into account factors
+                    such as market trends, regional variations in fuel prices, client
+                    purchasing history, and the desired profit margin set by the company.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="accordion">
+                How accurate are the fuel rate predictions?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    Our software strives to provide accurate predictions by
+                    analyzing vast amounts of historical data and adjusting for market
+                    fluctuations. While no prediction model is perfect, our software
+                    continuously improves its accuracy through machine learning and data refinement.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="accordion">
+                Can I update my profile information after registration?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    Yes, you can easily update your profile information,
+                    including contact details and billing address, by accessing the
+                    "Profile Management" section after logging in to your account.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="accordion">
+                How can I access my fuel quote history?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    Your fuel quote history is accessible from the
+                    dashboard after logging in to your account. You can view details
+                    of previous quotes, including date, gallons requested, rate, and total cost.
+                </p>
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="accordion">
+                How do I log out of my account?
+                <i class="fa-solid fa-chevron-down"></i>
+            </button>
+            <div class="pannel">
+                <p>
+                    To log out of your account, simply click
+                    on the "Logout" button located in the navigation bar.
+                    This ensures the security of your account by ending your current session.
+                </p>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <p>&copy; Fuel It Up. All rights reserved.</p>
+    </footer>
+    
+    <script>
+        var acc = document.getElementsByClassName("accordion");
+        var i;
+  
+        for (i = 0; i < acc.length; i++) {
+          acc[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            this.parentElement.classList.toggle("active");
+  
+            var pannel = this.nextElementSibling;
+  
+            if (pannel.style.display === "block") {
+              pannel.style.display = "none";
+            } else {
+              pannel.style.display = "block";
+            }
+          });
+        }
+      </script>
+
+</body>
+
+</html>
