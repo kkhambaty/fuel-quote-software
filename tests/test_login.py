@@ -1,5 +1,5 @@
 import unittest
-from main import app
+from app import app
 from login.login import users
 
 class FlaskTestCase(unittest.TestCase):
