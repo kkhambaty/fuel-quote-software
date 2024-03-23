@@ -15,12 +15,6 @@ def home():
 def profile_page():
     return render_template('profilePage.html')
 
-def index():
-    if 'logged_in' in session:
-        return f"Hello, {session['username']}! You are logged in. <a href='/login/logout'>Logout</a>"
-    else:
-        return "Welcome! You are not logged in. <a href='/login'>Login</a>"
-
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
 

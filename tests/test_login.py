@@ -1,36 +1,48 @@
 import unittest
+import json
 from app import app
-from login.login import users
 
-class FlaskTestCase(unittest.TestCase):
-
+class TestLogin(unittest.TestCase):
     def setUp(self):
-        app.testing = True
         self.app = app.test_client()
+        self.app.testing = True
 
-    def test_login_page_loads(self):
-        response = self.app.get('/login/')
+    def test_valid_login(self):
+        # Test valid login credentials
+        response = self.app.post('/login', json={'username': 'user1', 'password': 'password1'})
+        data = json.loads(response.data.decode())
         self.assertEqual(response.status_code, 200)
-        self.assertIn(b'Login', response.data)
+        self.assertEqual(data['message'], 'Login successful')
 
-    def test_successful_login(self):
-        response = self.app.post('/login/', data=dict(username='user1', password='password1'), follow_redirects=True)
-        self.assertIn(b'Hello, user1', response.data)
+    def test_invalid_login(self):
+        # Test invalid login credentials
+        response = self.app.post('/login', json={'username': 'user1', 'password': 'wrongpassword'})
+        data = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 401)
+        self.assertEqual(data['error'], 'Invalid username or password')
 
-    def test_unsuccessful_login(self):
-        response = self.app.post('/login/', data=dict(username='user1', password='wrong_password'), follow_redirects=True)
-        self.assertIn(b'Invalid username or password.', response.data)
+    def test_missing_fields(self):
+        # Test missing fields
+        response = self.app.post('/login', json={})
+        data = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['error'], 'Username and password are required')
 
-    def test_logout(self):
-        with self.app as c:
-            with c.session_transaction() as sess:
-                sess['logged_in'] = True
-                sess['username'] = 'user1'
-            response = c.get('/login/logout', follow_redirects=True)
-            self.assertNotIn(b'user1', response.data)
-            self.assertNotIn(b'Hello', response.data)
-            self.assertNotIn(b'Logout', response.data)
-            self.assertIn(b'Welcome to the site', response.data)
+    def test_field_length(self):
+        # Test field length
+        username = 'a' * 51
+        password = 'b' * 51
+        response = self.app.post('/login', json={'username': username, 'password': password})
+        data = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['error'], 'Username and password must be less than 50 characters long')
+
+    def test_field_types(self):
+        # Test field types
+        response = self.app.post('/login', json={'username': 123, 'password': 456})
+        data = json.loads(response.data.decode())
+        self.assertEqual(response.status_code, 400)
+        self.assertEqual(data['error'], 'Username and password must be strings')
 
 if __name__ == '__main__':
     unittest.main()
