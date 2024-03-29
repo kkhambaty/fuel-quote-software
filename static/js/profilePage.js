@@ -34,7 +34,7 @@ function saveProfile() {
         state: document.getElementById('state').value,
         zipcode: document.getElementById('zipcode').value,
     };
-    const url = `http://localhost:5000/profile/${userId}`;
+    const url = `/profile/${userId}`;
 
     fetch(url, {
         method: 'POST',
@@ -53,31 +53,22 @@ function saveProfile() {
         // Handle error, such as showing an error message to the user
     }); //store this in a text file
 
-    // document.getElementById('displayName').textContent = document.getElementById('fullName').value;
-    // document.getElementById('displayAddress1').textContent = document.getElementById('address1').value;
-    // document.getElementById('displayAddress2').textContent = document.getElementById('address2').value;
-    // document.getElementById('displayCity').textContent = document.getElementById('city').value;
-    // document.getElementById('displayState').textContent = document.getElementById('state').value;
-    // document.getElementById('displayZipcode').textContent = document.getElementById('zipcode').value;
-
-    // hideEditForm(); // Hide the form after saving
 }
 
-function fetchAndDisplayProfile() {
+ function fetchAndDisplayProfile() {
     const userId = getCurrentUserId(); // Assume this function gets the current user's ID
-    const url = `http://localhost:5000/profile/${userId}`;
-
+    const url = `profile/${userId}`;
     fetch(url)
     .then(response => {
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
-        return response.json();
+         return response.json();
     })
     .then(data => {
         console.log('Profile Data:', data);
         // Update the UI elements with the fetched profile data
-        document.getElementById('displayName').textContent = data.fullName || '';
+        document.getElementById('displayName').textContent  = data.fullName || '';
         document.getElementById('displayAddress1').textContent = data.address1 || '';
         document.getElementById('displayAddress2').textContent = data.address2 || '';
         document.getElementById('displayCity').textContent = data.city || '';
@@ -86,7 +77,6 @@ function fetchAndDisplayProfile() {
     })
     .catch(error => {
         console.error('Error:', error);
-        // Handle error, such as displaying a message to the user
     });
 }
 

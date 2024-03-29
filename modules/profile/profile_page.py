@@ -1,19 +1,20 @@
 import re
-from flask import Blueprint, jsonify, request
-
+from flask import Blueprint, jsonify, render_template, request
 profile_bp = Blueprint('profile', __name__)
 
 profiles = {
-    1: { 'fullName': 'John Doe', 'address1': '123 Elm St', 'address2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'},
+    1: { 'fullName': 'Mohammed Bhai', 'address1': '123 Elm St', 'address2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'},
     2: { 'fullName': 'Clair Boyle', 'address1': '123 Fire St', 'address2' : 'Suite 300', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12234-4321'}
 }
+
 
 @profile_bp.route('/<int:user_id>', methods=['GET', 'POST'])
 def profile(user_id):
     if request.method == 'GET':
         user_profile = find_profile_by_id(user_id)  # This function would fetch profile data
         if user_profile:
-            return jsonify(user_profile), 200
+            response = jsonify(profiles[user_id])
+            return response, 200
         else:
             return jsonify({"error": "Profile not found"}), 404
         
