@@ -13,7 +13,7 @@
         <nav class="navbar">
             <a href="homepage.html">Home</a>
             <a href="profilePage.html">Profile Page</a>
-            <a href="fuelQuoteHistory.html">Fuel Quote History</a>
+            <a href="fuelQuoteHistory">Fuel Quote History</a>
             <a href="fuelQuoteForm.html">Fuel Quote Form</a>
         </nav>
     </header>
@@ -22,7 +22,7 @@
             Fuel Quote History
         </h2>
         <table id="quoteHistoryTable" border="1">
-            <thead>
+       
                 <tr>
                     <th>Name</th>
                     <th>Gallons Requested</th>
@@ -31,42 +31,19 @@
                     <th>Suggested Price/Gallon</th>
                     <th>Total Amount Due</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- Quote history rows -->
+    
+                {% for quote in fuelQuoteHistory %}
+         
                 <tr>
-                    <td>John Doe</td>
-                    <td>100</td>
-                    <td>123 Lane</td>
-                    <td>3/1/24</td>
-                    <td>$4.00</td>
-                    <td>$400</td>
+                    <td>{{ quote.Name }}</td>
+                    <td>{{ quote['Gallons Requested'] }}</td>
+                    <td>{{ quote['Delivery Address'] }}</td>
+                    <td>{{ quote['Delivery Date'] }}</td>
+                    <td>{{ quote['Suggested Price/Gallon'] }}</td>
+                    <td>{{ quote['Total Amount Due'] }}</td>
                 </tr>
-                <tr>
-                    <td>Jane Doe</td>
-                    <td>200</td>
-                    <td>123 Main St</td>
-                    <td>3/23/24</td>
-                    <td>$4.00</td>
-                    <td>$200</td>
-                </tr>
-                <tr>
-                    <td>John Doe</td>
-                    <td>100</td>
-                    <td>123 Lane</td>
-                    <td>3/1/24</td>
-                    <td>$4.00</td>
-                    <td>$400</td>
-                </tr>
-                <tr>
-                    <td>Jane Doe</td>
-                    <td>200</td>
-                    <td>123 Main St</td>
-                    <td>3/23/24</td>
-                    <td>$4.00</td>
-                    <td>$200</td>
-                </tr>
-            </tbody>
+                {% endfor %}
+            
         </table>
     </div>
 

@@ -1,7 +1,13 @@
-from flask import flash, Blueprint, render_template, request, redirect, url_for, session
+from flask import flash, Blueprint, render_template, request, redirect, url_for, session, jsonify
 
 
 quote_bp = Blueprint('quote', __name__)
+
+# Mock fuel quote history data
+fuel_quote_history = [
+    {"Name": "John Doe", "Gallons Requested": 100, "Delivery Address": "123 Lane", "Delivery Date": "3/1/24", "Suggested Price/Gallon": 4.00, "Total Amount Due": 400},
+    {"Name": "Jane Doe", "Gallons Requested": 200, "Delivery Address": "123 Main St", "Delivery Date": "3/23/24", "Suggested Price/Gallon": 4.00, "Total Amount Due": 200},
+]
 
 #The quote form is meant to retrieve the delivery address from the user's profile information from a Database.
 #These sample profiles are here as substitutes to represent information from a Database for the time being
@@ -36,7 +42,11 @@ def quoteForm(user_id):
             format_num = "{:.2f}".format(due)
             result = "Total amount due: $" + str(format_num)
             return render_template('fuelQuoteForm.html', user=user_id, result=result, userAddr=userAddr, rate=rate), 200
-
+        
+@quote_bp.route('/fuelQuoteHistory', methods=['GET'])
+def get_fuel_quote_history():
+    # Return fuel quote history data
+    return jsonify(fuel_quote_history)
 
 def getUserAddr(user_id):
     return retrieved_profile[user_id]['address1'] + " " + retrieved_profile[user_id]['address2']

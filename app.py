@@ -9,6 +9,10 @@ app.config['TESTING'] = True
 app.secret_key = 'frenchfries'
 # app(CORS)
 
+app.register_blueprint(profile_bp, url_prefix='/profile')
+app.register_blueprint(quote_bp, url_prefix='/quote')
+app.register_blueprint(login_bp)
+
 @app.route('/')
 def home():
     return 'Fuel Quote Server is up and running!'
@@ -23,7 +27,3 @@ def quote_page():
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True)
-
-app.register_blueprint(profile_bp, url_prefix='/profile')
-app.register_blueprint(quote_bp, url_prefix='/quote')
-app.register_blueprint(login_bp)
