@@ -2,7 +2,7 @@ import pytest
 import json
 from app import app
 
-class TestLogin(unittest.TestCase):
+class TestLogin(pytest.TestCase):
     def setUp(self):
         self.app = app.test_client()
         self.app.testing = True
