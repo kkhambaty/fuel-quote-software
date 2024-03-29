@@ -7,7 +7,7 @@ def client():
         yield client
 
 def test_fuel_quote_history(client):
-    response = client.get('/fuel_quote_history')
+    response = client.get('/fuelQuoteHistory')
     assert response.status_code == 200
     
     # Check if response is in JSON format
