@@ -46,12 +46,10 @@ function saveProfile() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        // Handle success, such as updating UI or showing a success message
     })
     .catch(error => {
         console.error('Error:', error);
-        // Handle error, such as showing an error message to the user
-    }); //store this in a text file
+    }); 
 
 }
 
