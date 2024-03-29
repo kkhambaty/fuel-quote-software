@@ -1,6 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Blueprint, Flask, request, jsonify
 
-app = Flask(__name__)
+#app = Flask(__name__)
+
+login_bp = Blueprint('log-in', __name__)
 
 # Mock user data (replace this with a database later)
 users = {
