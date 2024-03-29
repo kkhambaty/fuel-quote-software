@@ -1,3 +1,4 @@
+import pytest
 import json
 from app import app
 
@@ -44,4 +45,4 @@ class TestLogin(unittest.TestCase):
         self.assertEqual(data['error'], 'Username and password must be strings')
 
 if __name__ == '__main__':
-    unittest.main()
+    pytest.main()
