@@ -1,30 +1,37 @@
-from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask import Flask, request, jsonify
 
-login_bp = Blueprint('login', __name__, url_prefix='/login')
+app = Flask(__name__)
 
-#for now, mock user data
+# Mock user data (replace this with a database later)
 users = {
     'user1': {'username': 'user1', 'password': 'password1'},
     'user2': {'username': 'user2', 'password': 'password2'}
 }
 
-@login_bp.route('/', methods=['GET', 'POST'])
+# Login route with validations
+@app.route('/login', methods=['POST'])
 def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+    data = request.json
+    username = data.get('username')
+    password = data.get('password')
+    
+    # Validate required fields
+    if not username or not password:
+        return jsonify({'error': 'Username and password are required'}), 400
+    
+    # Validate field lengths
+    if len(username) > 50 or len(password) > 50:
+        return jsonify({'error': 'Username and password must be less than 50 characters long'}), 400
+    
+    # Validate field types (assuming strings for username and password)
+    if not isinstance(username, str) or not isinstance(password, str):
+        return jsonify({'error': 'Username and password must be strings'}), 400
+    
+    # Perform authentication
+    if username in users and users[username]['password'] == password:
+        return jsonify({'message': 'Login successful'}), 200
+    else:
+        return jsonify({'error': 'Invalid username or password'}), 401
 
-        if username in users and users[username]['password'] == password:
-            session['logged_in'] = True
-            session['username'] = username
-            return redirect(url_for('index'))
-        else:
-            return render_template('login.html', error='Invalid username or password.')
-
-    return render_template('login.html', error=None)
-
-@login_bp.route('/logout')
-def logout():
-    session.pop('logged_in', None)
-    session.pop('username', None)
-    return redirect(url_for('index'))
+if __name__ == '__main__':
+    app.run(debug=True)
