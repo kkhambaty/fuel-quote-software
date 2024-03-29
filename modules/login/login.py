@@ -11,7 +11,7 @@ users = {
 }
 
 # Login route with validations
-@app.route('/login', methods=['POST'])
+@login_bp.route('/login', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
@@ -36,4 +36,4 @@ def login():
         return jsonify({'error': 'Invalid username or password'}), 401
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    login_bp.run(debug=True)
