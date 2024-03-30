@@ -46,7 +46,7 @@ def quoteForm(user_id):
 @quote_bp.route('/fuelQuoteHistory', methods=['GET'])
 def get_fuel_quote_history():
     # Return fuel quote history data
-    return jsonify(fuel_quote_history)
+    return render_template('fuelQuoteHistory.html', fuelQuoteHistory=fuel_quote_history)
 
 def getUserAddr(user_id):
     return retrieved_profile[user_id]['address1'] + " " + retrieved_profile[user_id]['address2']
