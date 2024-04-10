@@ -5,6 +5,8 @@ from modules.quote.quote_page import quote_bp
 # from flask_cors import CORS
 
 app = Flask(__name__)
+# new mysql db
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Password123@localhost/fuelQuoteData'
 app.config['TESTING'] = True
 app.secret_key = 'frenchfries'
 # app(CORS)
