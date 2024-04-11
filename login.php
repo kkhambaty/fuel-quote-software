@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION["username"] = $username;
             
             // Redirect to homepage or another page
-            header("Location: index.php");
+            header("Location: profilePage.html");
             exit;
         } else {
             // Display error message
