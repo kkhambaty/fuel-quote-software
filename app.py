@@ -57,13 +57,27 @@ def login():
             return 'Invalid username or password'
 
     # If GET request, render login form
-    return render_template('login.html')
+    return render_template('index.html')
 
 @app.route('/logout', methods=['POST'])
 def logout():
     # Clear session data
     session.pop('username', None)
-    return redirect(url_for('home'))
+    return redirect(url_for('home')) # May need to make this homepage.html
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        # Hash the password
+        hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
+        # Store the username and hashed password in the users dictionary
+        users[username] = hashed_password
+        return redirect(url_for('login')) # Might need to make this index? Registration and login are both in index
+
+    # If GET request, render registration form which is in index.html
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=5000)
