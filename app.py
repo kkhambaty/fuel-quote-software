@@ -3,6 +3,7 @@ from modules.login.login import login_bp
 from modules.profile.profile_page import profile_bp 
 from modules.quote.quote_page import quote_bp
 from flask_sqlalchemy import SQLAlchemy
+from database import db
 import logging
 # from flask_cors import CORS
 
@@ -10,7 +11,7 @@ app = Flask(__name__)
 # new mysql db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/fuelQuoteAppData'
 app.config['SQLALCHEMY_ECHO'] = True
-db = SQLAlchemy(app)
+db.init_app(app)
 app.config['TESTING'] = True
 app.secret_key = 'frenchfries'
 # app(CORS)

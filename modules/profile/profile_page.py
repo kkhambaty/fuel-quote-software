@@ -1,5 +1,7 @@
 import re
 from flask import Blueprint, jsonify, render_template, request
+from models import Profile, User
+from database import db
 profile_bp = Blueprint('profile', __name__)
 
 profiles = {
@@ -13,13 +15,22 @@ def profile(user_id):
     if request.method == 'GET':
         user_profile = find_profile_by_id(user_id)  # This function would fetch profile data
         if user_profile:
-            response = jsonify(profiles[user_id])
+            profile_data = {
+                "fullName": user_profile.FullName,
+                "address1": user_profile.Address1,
+                "address2": user_profile.Address2,
+                "city": user_profile.City,
+                "state": user_profile.State,
+                "zipcode": user_profile.Zipcode,
+            }
+            response = jsonify(profile_data)
             return response, 200
         else:
             return jsonify({"error": "Profile not found"}), 404
         
-    elif request.method == 'POST':       
-        if not profile_exists(user_id):
+    elif request.method == 'POST':
+        user_profile = find_profile_by_id(user_id)       
+        if not user_profile:
             # If the profile does not exist, return a 404 error instead of creating a new one
             return jsonify({"error": "Profile not found"}), 404
 
@@ -36,17 +47,25 @@ def profile(user_id):
     
 
 def find_profile_by_id(user_id):
-    return profiles.get(user_id)
+    profile = Profile.query.filter_by(UserID=user_id).first()
+    return profile
 
 def update_profile_by_id(user_id, profile_data):
-    if user_id in profiles:
-        profiles[user_id].update(profile_data)
+    profile = Profile.query.filter_by(UserID=user_id).first()
+    if profile:
+        profile.FullName = profile_data.get('fullName', profile.FullName) 
+        profile.Address1 = profile_data.get('address1', profile.Address1)
+        profile.Address2 = profile_data.get('address2', profile.Address2)
+        profile.City = profile_data.get('city', profile.City)
+        profile.State = profile_data.get('state', profile.State)
+        profile.Zipcode = profile_data.get('zipcode', profile.Zipcode)
+        db.session.commit()
         return True
     else:
         return False
     
-def profile_exists(user_id):
-    return user_id in profiles
+# def profile_exists(user_id):
+#     return user_id in profiles
 
 def valid_profile_data(profile_data):
     

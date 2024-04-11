@@ -1,4 +1,4 @@
-from app import db
+from database import db
 from sqlalchemy.orm import relationship 
 
 class User(db.Model):
@@ -6,8 +6,8 @@ class User(db.Model):
     ID = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)
     password = db.Column(db.String(255), nullable=False)
-    profiles = relationship('Profile', back_populates='user')
-    fuel_quotes = relationship('FuelQuoteForm', back_populates='user')
+    profiles = relationship('Profile', back_populates='user', lazy=True, cascade="all, delete, delete-orphan")
+    fuel_quotes = relationship('FuelQuoteForm', back_populates='user', lazy=True, cascade="all, delete, delete-orphan")
 
 class Profile(db.Model):
     __tablename__ = 'profile'
