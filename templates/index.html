@@ -62,11 +62,14 @@
 
   <div id="loginPage">
     <h2 class="login">Login</h2>
-    <form id="loginForm" action="login.php" method="POST"> <!--prev action = /login-->
+    <form id="loginForm" action="/login" method="POST"> 
       <input type="text" id="username" placeholder="Username" required>
       <input type="password" id="password" placeholder="Password" required>
       <button type="submit" name="action" value="login">Login</button>
       <button type="submit" name="action" value="logout">Logout</button>
+    </form>
+    <form method="post" action="/logout">
+      <button type="submit">Logout</button>
     </form>
     <button id="registerBtn">Register</button>
   </div>
@@ -150,35 +153,6 @@
     registrationPage.style.display = 'none';
   });
 
-  document.getElementById('loginForm').addEventListener('submit', function(e) {
-    // Prevent the default form submission behavior
-    e.preventDefault();
-
-    // Get the value of the clicked button
-    var action = document.querySelector('button[type=submit][clicked=true]').value;
-    
-    // Set the form action based on the clicked button
-    if (action === 'logout') {
-        this.action = 'logout.php';
-    } else {
-        this.action = 'login.php';
-    }
-
-    // Submit the form
-    this.submit();
-});
-
-document.querySelectorAll('button[type=submit]').forEach(function(button) {
-    button.addEventListener('click', function() {
-        // Remove the 'clicked' attribute from all buttons
-        document.querySelectorAll('button[type=submit]').forEach(function(btn) {
-            btn.removeAttribute('clicked');
-        });
-
-        // Set the 'clicked' attribute to the clicked button
-        this.setAttribute('clicked', 'true');
-    });
-});
   </script>
 </body>
 </html>

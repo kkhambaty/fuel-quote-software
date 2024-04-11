@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template, session, redirect
+from flask import Flask, jsonify, request, render_template, session, redirect, url_for
 from modules.login.login import login_bp
 from modules.profile.profile_page import profile_bp 
 from modules.quote.quote_page import quote_bp
@@ -22,7 +22,11 @@ app.register_blueprint(login_bp)
 
 @app.route('/')
 def home():
-    return 'Fuel Quote Server is up and running!'
+    # Check if user is logged in
+    if 'username' in session:
+        return f'Hello, {session["username"]}! <a href="/logout">Logout</a>'
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/profile-page')
 def profile_page():
@@ -31,6 +35,30 @@ def profile_page():
 @app.route('/quote-page')
 def quote_page():
     return redirect('quote/1')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        # Retrieve username and password from form
+        username = request.form['username']
+        password = request.form['password']
+        
+        # Example validation (replace with your actual validation logic)
+        if username == 'example_user' and password == 'example_password':
+            # Store username in session
+            session['username'] = username
+            return redirect(url_for('home'))
+        else:
+            return 'Invalid username or password'
+
+    # If GET request, render login form
+    return render_template('login.html')
+
+@app.route('/logout', methods=['POST'])
+def logout():
+    # Clear session data
+    session.pop('username', None)
+    return redirect(url_for('home'))
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=5000)
