@@ -2,11 +2,15 @@ from flask import Flask, jsonify, request, render_template, session, redirect
 from modules.login.login import login_bp
 from modules.profile.profile_page import profile_bp 
 from modules.quote.quote_page import quote_bp
+from flask_sqlalchemy import SQLAlchemy
+import logging
 # from flask_cors import CORS
 
 app = Flask(__name__)
 # new mysql db
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Password123@localhost/fuelQuoteData'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/fuelQuoteAppData'
+app.config['SQLALCHEMY_ECHO'] = True
+db = SQLAlchemy(app)
 app.config['TESTING'] = True
 app.secret_key = 'frenchfries'
 # app(CORS)
