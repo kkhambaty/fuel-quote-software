@@ -4,10 +4,14 @@ from modules.profile.profile_page import profile_bp
 from modules.quote.quote_page import quote_bp
 from flask_sqlalchemy import SQLAlchemy
 from database import db
+from flask_bcrypt import Bcrypt
 import logging
 # from flask_cors import CORS
 
 app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+bcrypt = Bcrypt(app)
+
 # new mysql db
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/fuelQuoteAppData'
 app.config['SQLALCHEMY_ECHO'] = True
@@ -44,6 +48,7 @@ def login():
         password = request.form['password']
         
         # Example validation (replace with your actual validation logic)
+        hashed_password = bcrypt.generate_password_hash('example_password').decode('utf-8')
         if username == 'example_user' and password == 'example_password':
             # Store username in session
             session['username'] = username
