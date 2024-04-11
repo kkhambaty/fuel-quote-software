@@ -4,10 +4,10 @@ from models import Profile, User
 from database import db
 profile_bp = Blueprint('profile', __name__)
 
-profiles = {
-    1: { 'fullName': 'Mohammed Bhai', 'address1': '123 Elm St', 'address2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'},
-    2: { 'fullName': 'Clair Boyle', 'address1': '123 Fire St', 'address2' : 'Suite 300', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12234-4321'}
-}
+# profiles = {
+#     1: { 'fullName': 'Mohammed Bhai', 'address1': '123 Elm St', 'address2' : 'Suite 200', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12345-6789'},
+#     2: { 'fullName': 'Clair Boyle', 'address1': '123 Fire St', 'address2' : 'Suite 300', 'city' : 'San Diego', 'state': 'CA', 'zipcode' : '12234-4321'}
+# }
 
 
 @profile_bp.route('/<int:user_id>', methods=['GET', 'POST'])
