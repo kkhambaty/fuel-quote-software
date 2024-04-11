@@ -31,8 +31,8 @@ CREATE TABLE `fuelquoteform` (
   `PricePerGallon` decimal(10,2) DEFAULT NULL,
   `TotalAmountDue` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`QuoteID`),
-  KEY `UserID` (`UserID`),
-  CONSTRAINT `fuelquoteform_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`)
+  KEY `fuelquoteform_ibfk_1` (`UserID`),
+  CONSTRAINT `fuelquoteform_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -61,7 +61,7 @@ CREATE TABLE `profile` (
   `State` char(2) NOT NULL,
   `Zipcode` varchar(9) NOT NULL,
   PRIMARY KEY (`UserID`),
-  CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`),
+  CONSTRAINT `profile_ibfk_1` FOREIGN KEY (`UserID`) REFERENCES `user` (`ID`) ON DELETE CASCADE,
   CONSTRAINT `profile_chk_1` CHECK ((length(`Zipcode`) >= 5))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -88,7 +88,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -109,4 +109,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-04-10 13:54:14
+-- Dump completed on 2024-04-11 11:02:04
