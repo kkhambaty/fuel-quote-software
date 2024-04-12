@@ -53,7 +53,7 @@ def profile_page():
 def quote_page():
     return redirect('quote')
 
-@app.route('/logi', methods=['GET','POST'])
+@app.route('/login-page', methods=['GET','POST'])
 def login():
     # print("hello")
     print(request.method)
