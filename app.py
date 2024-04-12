@@ -36,7 +36,7 @@ def home():
         return render_template('homepage.html', username=current_user.username)
     # return render_template('homepage.html', username='123445')
     else:
-        return redirect(url_for('login-page'))
+        return redirect(url_for('login'))
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -53,7 +53,7 @@ def profile_page():
 def quote_page():
     return redirect('quote')
 
-@app.route('/login-page', methods=['GET','POST'])
+@app.route('/logi', methods=['GET','POST'])
 def login():
     # print("hello")
     print(request.method)
@@ -66,9 +66,9 @@ def login():
         username = request.form.get('username')
         password = request.form.get('password')
         user = User.query.filter_by(username=username).first()
-        print("username: ", username)
-        print("user: ", str(user))
-        print("password: ", password)
+        # print("username: ", username)
+        # print("user: ", str(user))
+        # print("password: ", password)
         
         if bcrypt.check_password_hash(user.password, password):
             # Logic to log the user in
@@ -76,7 +76,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
-            return redirect(url_for('login-page'))
+            return redirect(url_for('login'))
         # else:
         #     return 'Invalid username or password'
     
@@ -105,7 +105,7 @@ def logout():
     # Clear session data
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('login-page')) # May need to make this homepage.html
+    return redirect(url_for('login')) # May need to make this homepage.html
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -125,7 +125,7 @@ def register():
         db.session.commit()
         db.session.rollback()
         
-        return redirect(url_for('login-page')) # Might need to make this index? Registration and login are both in index
+        return redirect(url_for('login')) # Might need to make this index? Registration and login are both in index
 
     # If GET request, render registration form which is in index.html
     return render_template('index.html')
