@@ -2,26 +2,34 @@ import pytest
 import json
 from app import app
 
-# Define test users data
-test_users = {
-    'user1': 'password1',  # Add more test users if needed
-}
+# Define test user data
+TEST_USERNAME = 'test_user'
+TEST_PASSWORD = 'test_password'
 
 @pytest.fixture
 def client():
-    app.testing = True
+    app.config['TESTING'] = True
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'  # Use in-memory database for testing
     with app.test_client() as client:
+        with app.app_context():
+            db.create_all()
+            # Create a test user in the database
+            user = User(username=TEST_USERNAME, password=TEST_PASSWORD)
+            db.session.add(user)
+            db.session.commit()
         yield client
+        # Clean up: Drop all tables after testing
+        db.drop_all()
 
 def test_valid_login(client):
     # Test valid login credentials
-    response = client.post('/logi', data={'username': 'user1', 'password': 'password1'}, follow_redirects=True)
+    response = client.post('/logi', data={'username': TEST_USERNAME, 'password': TEST_PASSWORD}, follow_redirects=True)
     assert response.status_code == 200
     assert b'Welcome, user1' in response.data
 
 def test_invalid_login(client):
     # Test invalid login credentials
-    response = client.post('/logi', data={'username': 'user1', 'password': 'wrongpassword'}, follow_redirects=True)
+    response = client.post('/logi', data={'username': TEST_USERNAME, 'password': 'wrong_password'}, follow_redirects=True)
     assert response.status_code == 200
     assert b'Invalid username or password' in response.data
 
