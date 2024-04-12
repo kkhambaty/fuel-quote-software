@@ -51,7 +51,12 @@ def profile_page():
 @app.route('/quote-page')
 @login_required
 def quote_page():
-    return redirect('quote')
+    return redirect('/quote/' + str(current_user.ID))
+
+@app.route('/history-page')
+@login_required
+def history_page():
+    return redirect('/quote/fuelQuoteHistory/' + str(current_user.ID))
 
 @app.route('/logi', methods=['GET','POST'])
 def login():

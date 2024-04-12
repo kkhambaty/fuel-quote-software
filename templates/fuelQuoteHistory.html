@@ -33,15 +33,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for quote in fuelQuoteHistory %}
+                {% for quote in fuel_quote_history %}
          
                 <tr>
-                    <td>{{ quote.Name }}</td>
-                    <td>{{ quote['Gallons Requested'] }}</td>
-                    <td>{{ quote['Delivery Address'] }}</td>
-                    <td>{{ quote['Delivery Date'] }}</td>
-                    <td>{{ quote['Suggested Price/Gallon'] }}</td>
-                    <td>{{ quote['Total Amount Due'] }}</td>
+                    <td>{{ quote['GallonsRequested'] }}</td>
+                    <td>{{ quote['DeliveryAddress'] }}</td>
+                    <td>{{ quote['DeliveryDate'] }}</td>
+                    <td>{{ quote['PricePerGallon'] }}</td>
+                    <td>{{ quote['TotalAmountDue'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
