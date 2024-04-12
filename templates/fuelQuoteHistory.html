@@ -11,10 +11,10 @@
 <body>
     <header class="header">
         <nav class="navbar">
-            <a href="homepage.html">Home</a>
+            <a href="/home">Home</a>
             <a href="/profile-page">Profile Page</a>
-            <a href="/quote/fuelQuoteHistory">Fuel Quote History</a>
-            <a href="/quote/1">Fuel Quote Form</a>
+            <a href="/history-page">Fuel Quote History</a>
+            <a href="/quote-page">Fuel Quote Form</a>
         </nav>
     </header>
     <div id="fuelQuoteHistoryPage">
@@ -24,7 +24,6 @@
         <table id="quoteHistoryTable" border="1">
             <thead>
                 <tr>
-                    <th>Name</th>
                     <th>Gallons Requested</th>
                     <th>Delivery Address</th>
                     <th>Delivery Date</th>
@@ -33,15 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                {% for quote in fuelQuoteHistory %}
+                {% for quote in fuel_quote_history %}
          
                 <tr>
-                    <td>{{ quote.Name }}</td>
-                    <td>{{ quote['Gallons Requested'] }}</td>
-                    <td>{{ quote['Delivery Address'] }}</td>
-                    <td>{{ quote['Delivery Date'] }}</td>
-                    <td>{{ quote['Suggested Price/Gallon'] }}</td>
-                    <td>{{ quote['Total Amount Due'] }}</td>
+                    <td>{{ quote['GallonsRequested'] }}</td>
+                    <td>{{ quote['DeliveryAddress'] }}</td>
+                    <td>{{ quote['DeliveryDate'] }}</td>
+                    <td>{{ quote['PricePerGallon'] }}</td>
+                    <td>{{ quote['TotalAmountDue'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
