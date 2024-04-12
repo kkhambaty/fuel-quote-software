@@ -36,7 +36,7 @@ def home():
         return render_template('homepage.html', username=current_user.username)
     # return render_template('homepage.html', username='123445')
     else:
-        return redirect(url_for('login'))
+        return redirect(url_for('login-page'))
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -76,7 +76,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('login-page'))
         # else:
         #     return 'Invalid username or password'
     
@@ -105,7 +105,7 @@ def logout():
     # Clear session data
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('login')) # May need to make this homepage.html
+    return redirect(url_for('login-page')) # May need to make this homepage.html
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -125,7 +125,7 @@ def register():
         db.session.commit()
         db.session.rollback()
         
-        return redirect(url_for('login')) # Might need to make this index? Registration and login are both in index
+        return redirect(url_for('login-page')) # Might need to make this index? Registration and login are both in index
 
     # If GET request, render registration form which is in index.html
     return render_template('index.html')
