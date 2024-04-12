@@ -51,32 +51,25 @@ def profile_page():
 def quote_page():
     return redirect('quote')
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
     if request.method == 'POST':
-        data = request.get_json()
-        if not data:
-            return jsonify({'error': 'Missing data'}), 400
-        # Retrieve username and password from form
-        username = data.get('username')
-        password = data.get('password')
-        user = User.query.filter_by(username=username).first()
-
-        if user and bcrypt.check_password_hash(user.password, password):
-            login_user(user)
-            # session['username'] = username
-            return redirect(url_for('home'))
-        else:
-            return "Invalid username or password"
+        username = request.form['username']
+        password = request.form['password']
         
-        # Example validation (replace with your actual validation logic)
-        # hashed_password = bcrypt.generate_password_hash('example_password').decode('utf-8')
-        # if username == 'example_user' and password == 'example_password':
-        #     # Store username in session
-        #     session['username'] = username
-        #     return redirect(url_for('home'))
-        # else:
-        #     return 'Invalid username or password'
+        # Check if the username exists in your user data
+        if username in user:
+            # Retrieve the hashed password for the provided username
+            hashed_password = users[username]
+            # Check if the provided password matches the hashed password
+            if bcrypt.check_password_hash(hashed_password, password):
+                # If the passwords match, store the username in the session
+                session['username'] = username
+                return redirect(url_for('home'))  # Redirect to the home page or wherever you want to go after login
+            else:
+                return 'Invalid username or password'
+        else:
+            return 'Invalid username or password'
 
     # If GET request, render login form
     return render_template('index.html')
