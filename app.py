@@ -102,9 +102,10 @@ def login():
 
 @app.route('/logout', methods=['POST'])
 def logout():
+    # Clear session data
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('login'))
+    return redirect(url_for('login')) # May need to make this homepage.html
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -122,16 +123,12 @@ def register():
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
+        db.session.rollback()
         
         return redirect(url_for('login')) # Might need to make this index? Registration and login are both in index
 
     # If GET request, render registration form which is in index.html
     return render_template('index.html')
-
-# Load user from database
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 if __name__ == '__main__':
     app.run(debug=True, use_reloader=True, port=5000)
