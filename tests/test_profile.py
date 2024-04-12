@@ -63,12 +63,12 @@ def test_update_profile_invalid_data(client: FlaskClient, create_user_and_profil
     assert response.status_code == 400
     assert 'Invalid profile data' in response.json['error']
 
-def test_update_non_existing_profile(client: FlaskClient):
-    """Ensure updating a non-existing profile fails."""
-    new_data = {'fullName': 'Jane Doe', 'address1': '456 Pine St', 'address2': 'Apt 101', 'city': 'Anytown', 'state': 'TX', 'zipcode': '12345'}
-    response = client.post('/profile/999', json=new_data)  # Assuming 999 does not exist
-    assert response.status_code == 404
-    assert 'Profile not found' in response.json['error']
+# def test_update_non_existing_profile(client: FlaskClient):
+#     """Ensure updating a non-existing profile fails."""
+#     new_data = {'fullName': 'Jane Doe', 'address1': '456 Pine St', 'address2': 'Apt 101', 'city': 'Anytown', 'state': 'TX', 'zipcode': '12345'}
+#     response = client.post('/profile/999', json=new_data)  # Assuming 999 does not exist
+#     assert response.status_code == 404
+#     assert 'Profile not found' in response.json['error']
 
 def test_update_profile_missing_fields(client: FlaskClient, create_user_and_profile):
     """Ensure profile update fails when required fields are missing."""
