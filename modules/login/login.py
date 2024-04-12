@@ -11,7 +11,7 @@ login_bp = Blueprint('log-in', __name__)
 #}
 
 # Login route with validations
-@login_bp.route('/login', methods=['POST'])
+@login_bp.route('/logi', methods=['POST'])
 def login():
     data = request.json
     username = data.get('username')
