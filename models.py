@@ -1,7 +1,11 @@
 from database import db
 from sqlalchemy.orm import relationship 
+from flask_login import UserMixin
+from flask_bcrypt import Bcrypt
 
-class User(db.Model):
+bcrypt = Bcrypt()
+
+class User(UserMixin, db.Model):
     __tablename__ = 'user'
     ID = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(255), unique=True, nullable=False)

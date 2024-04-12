@@ -79,7 +79,5 @@ function saveProfile() {
 }
 
 function getCurrentUserId() {
-    return 1; // Or return null if creating a new profile
-    // will implement code of getting the logged-in user session id when implementing database.
-    // for right now, just return hardcoded id
+    return userId; 
 }
