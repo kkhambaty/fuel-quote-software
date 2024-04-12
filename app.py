@@ -26,7 +26,7 @@ login_manager.login_view = 'login'
 
 app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(quote_bp, url_prefix='/quote')
-app.register_blueprint(login_bp)
+app.register_blueprint(login_bp, url_prefix='/logi')
 
 @app.route('/home')
 @login_required
@@ -76,7 +76,7 @@ def login():
             return redirect(url_for('home'))
         else:
             flash('Invalid username or password')
-            return redirect(url_for('login'))
+            return redirect(url_for('logi'))
         # else:
         #     return 'Invalid username or password'
     

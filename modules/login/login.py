@@ -11,12 +11,13 @@ users = {
 }
 
 # Login route with validations
-@login_bp.route('/logi', methods=['POST'])
+@login_bp.route('/<int:user_id>', methods=['POST'])
 def login():
-    data = request.json
-    username = data.get('username')
-    password = data.get('password')
-    
+    # data = request.json
+    # username = data.get('username')
+    # password = data.get('password')
+    username = request.form.get('username')
+    password = request.form.get('password')
     # Validate required fields
     if not username or not password:
         return jsonify({'error': 'Username and password are required'}), 400
