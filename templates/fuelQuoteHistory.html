@@ -21,6 +21,7 @@
         <h2 class="histHeader">
             Fuel Quote History
         </h2>
+    {% if fuel_quote_history %}
         <table id="quoteHistoryTable" border="1">
             <thead>
                 <tr>
@@ -44,6 +45,9 @@
                 {% endfor %}
             </tbody>
         </table>
+    {% else %}
+        <p>No fuel quote history available.</p>
+    {% endif %}
     </div>
 
 </body>
