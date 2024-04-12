@@ -51,16 +51,16 @@ def profile_page():
 def quote_page():
     return redirect('quote')
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         
         # Check if the username exists in your user data
-        if username in user:
+        if username in User:
             # Retrieve the hashed password for the provided username
-            hashed_password = users[username]
+            hashed_password = User[username]
             # Check if the provided password matches the hashed password
             if bcrypt.check_password_hash(hashed_password, password):
                 # If the passwords match, store the username in the session
