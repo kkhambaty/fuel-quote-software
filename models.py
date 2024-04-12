@@ -13,6 +13,9 @@ class User(UserMixin, db.Model):
     profiles = relationship('Profile', back_populates='user', lazy=True, cascade="all, delete, delete-orphan")
     fuel_quotes = relationship('FuelQuoteForm', back_populates='user', lazy=True, cascade="all, delete, delete-orphan")
 
+    def get_id(self):
+        return self.ID
+
 class Profile(db.Model):
     __tablename__ = 'profile'
     UserID = db.Column(db.Integer, db.ForeignKey('user.ID'), primary_key=True)

@@ -28,11 +28,13 @@ app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(quote_bp, url_prefix='/quote')
 app.register_blueprint(login_bp)
 
-@app.route('/')
+@app.route('/home')
+@login_required
 def home():
     # Check if user is logged in
     if current_user.is_authenticated:
         return render_template('homepage.html', username=current_user.username)
+    # return render_template('homepage.html', username='123445')
     else:
         return redirect(url_for('login'))
     
@@ -51,30 +53,37 @@ def profile_page():
 def quote_page():
     return redirect('quote')
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/logi', methods=['GET','POST'])
 def login():
-    if request.method == 'POST':
+    # print("hello")
+    print(request.method)
+    if request.method == 'GET':
+        return render_template('index.html')
+    elif request.method == 'POST':
+        print("bello")
+        # username = request.get_json('username')
+        # password = request.get_json('password')
         username = request.form.get('username')
         password = request.form.get('password')
+        user = User.query.filter_by(username=username).first()
+        print("username: ", username)
+        print("user: ", str(user))
+        print("password: ", password)
         
-        # Check if the username exists in your user data
-        if username in User:
-            # Retrieve the hashed password for the provided username
-            hashed_password = User[username]
-            # Check if the provided password matches the hashed password
-            if bcrypt.check_password_hash(hashed_password, password):
-                # If the passwords match, store the username in the session
-                session['username'] = username
-                return redirect(url_for('home'))  # Redirect to the home page or wherever you want to go after login
-            else:
-                return 'Invalid username or password'
+        if bcrypt.check_password_hash(user.password, password):
+            # Logic to log the user in
+            login_user(user)
+            return redirect(url_for('home'))
         else:
-            return 'Invalid username or password'
-
+            flash('Invalid username or password')
+            return redirect(url_for('login'))
+        # else:
+        #     return 'Invalid username or password'
+    
     # If GET request, render login form
-    return render_template('index.html')
+    
 
-# @app.route('/login', methods=['POST', 'GET'])
+# @app.route('/logi', methods=['POST', 'GET'])
 # def login():
 #     if request.method == 'POST':
 #         username = request.form.get('username')
@@ -89,7 +98,7 @@ def login():
 #             flash('Invalid username or password')
 #             return redirect(url_for('login'))
     
-#     return render_template('login.html')
+#     return render_template('index.html')
 
 @app.route('/logout', methods=['POST'])
 def logout():

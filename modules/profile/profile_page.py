@@ -29,14 +29,18 @@ def profile(user_id):
             return jsonify({"error": "Profile not found"}), 404
         
     elif request.method == 'POST':
-        user_profile = find_profile_by_id(user_id)       
+        user_profile = find_profile_by_id(user_id)
+        profile_data = request.json    
+        if not valid_profile_data(profile_data):
+            return jsonify({"error": "Invalid profile data"}), 400   
         if not user_profile:
             # If the profile does not exist, return a 404 error instead of creating a new one
-            return jsonify({"error": "Profile not found"}), 404
+            add_profile(user_id, profile_data)
+            return jsonify({"message": "New Profile Created"}), 200 
+            # return jsonify({"error": "Profile not found"}), 404
 
-        profile_data = request.json
-        if not valid_profile_data(profile_data):
-            return jsonify({"error": "Invalid profile data"}), 400
+        # if not valid_profile_data(profile_data):
+        #     return jsonify({"error": "Invalid profile data"}), 400
 
         success = update_profile_by_id(user_id, profile_data)
         if success:
@@ -44,7 +48,20 @@ def profile(user_id):
         else:
             # If update fails for reasons other than non-existence, return a generic error message
             return jsonify({"error": "Profile update failed"}), 400
-    
+
+
+def add_profile(user_id, profile_data):
+    new_profile = Profile(
+        UserID=user_id,
+        FullName=profile_data.get('fullName'), 
+        Address1=profile_data.get('address1'),
+        Address2=profile_data.get('address2'),
+        City=profile_data.get('city'),
+        State=profile_data.get('state'),
+        Zipcode=profile_data.get('zipcode')
+    )
+    db.session.add(new_profile)
+    db.session.commit()
 
 def find_profile_by_id(user_id):
     profile = Profile.query.filter_by(UserID=user_id).first()

@@ -46,10 +46,13 @@ function saveProfile() {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
+        // fetchAndDisplayProfile();
     })
     .catch(error => {
         console.error('Error:', error);
     }); 
+
+
 
 }
 
