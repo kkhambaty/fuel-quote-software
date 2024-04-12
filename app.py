@@ -54,8 +54,8 @@ def quote_page():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        username = request.form.get('username')
+        password = request.form.get('password')
         
         # Check if the username exists in your user data
         if username in User:
@@ -74,6 +74,23 @@ def login():
     # If GET request, render login form
     return render_template('index.html')
 
+# @app.route('/login', methods=['POST', 'GET'])
+# def login():
+#     if request.method == 'POST':
+#         username = request.form.get('username')
+#         password = request.form.get('password')
+        
+#         user = User.query.filter_by(username=username).first()
+        
+#         if user and bcrypt.check_password_hash(user.password, password):
+#             # Logic to log the user in
+#             return redirect(url_for('home'))
+#         else:
+#             flash('Invalid username or password')
+#             return redirect(url_for('login'))
+    
+#     return render_template('login.html')
+
 @app.route('/logout', methods=['POST'])
 def logout():
     # Clear session data
@@ -91,7 +108,7 @@ def register():
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         user_exists = User.query.filter_by(username=username).first() is not None
         if user_exists:
-            return "Username already exists. Please choose a different one.", render_template('index.html')
+            return "Username already exists. Please choose a different one." #, render_template('index.html')
         # Store the username and hashed password in the users dictionary
         # users[username] = hashed_password # Shouldn't this be adding to the db?
         new_user = User(username=username, password=hashed_password)
