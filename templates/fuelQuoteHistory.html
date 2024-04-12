@@ -21,6 +21,7 @@
         <h2 class="histHeader">
             Fuel Quote History
         </h2>
+    {% if fuel_quote_history %}
         <table id="quoteHistoryTable" border="1">
             <thead>
                 <tr>
@@ -33,19 +34,28 @@
                 </tr>
             </thead>
             <tbody>
-                {% for quote in fuelQuoteHistory %}
+                {% for quote in fuel_quote_history %}
          
                 <tr>
-                    <td>{{ quote.Name }}</td>
-                    <td>{{ quote['Gallons Requested'] }}</td>
-                    <td>{{ quote['Delivery Address'] }}</td>
-                    <td>{{ quote['Delivery Date'] }}</td>
-                    <td>{{ quote['Suggested Price/Gallon'] }}</td>
-                    <td>{{ quote['Total Amount Due'] }}</td>
+                    <td>{{ quote.user.username }}</td>
+                    <td>{{ quote['GallonsRequested'] }}</td>
+                    <td>{{ quote['DeliveryAddress'] }}</td>
+                    <td>{{ quote['DeliveryDate'] }}</td>
+                    <td>{{ quote['PricePerGallon'] }}</td>
+                    <td>{{ quote['TotalAmountDue'] }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
+    {% else %}
+    <table id="quoteHistoryTable" border="1">
+        <tbody>
+            <tr>
+                <td colspan="6">No fuel quote history available.</td>
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
     </div>
 
 </body>

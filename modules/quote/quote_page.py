@@ -1,4 +1,5 @@
 from flask import flash, Blueprint, render_template, request, redirect, url_for, session, jsonify
+from models import FuelQuoteForm
 
 
 quote_bp = Blueprint('quote', __name__)
@@ -45,8 +46,15 @@ def quoteForm(user_id):
         
 @quote_bp.route('/fuelQuoteHistory', methods=['GET'])
 def get_fuel_quote_history():
-    # Return fuel quote history data
-    return render_template('fuelQuoteHistory.html', fuelQuoteHistory=fuel_quote_history)
+    # query database to retrieve fuel quote history data
+    fuel_quote_history = FuelQuoteForm.query.all()
+
+    # check if there is any data retrieved 
+    if not fuel_quote_history:
+        return render_template('fuelQuoteHistory.html', fuelQuoteHistory=[])
+    
+    # pass the fuel quote history to the template
+    return render_template('fuelQuoteHistory.html', fuel_quote_history=fuel_quote_history)
 
 def getUserAddr(user_id):
     return retrieved_profile[user_id]['address1'] + " " + retrieved_profile[user_id]['address2']
