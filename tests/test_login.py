@@ -2,6 +2,11 @@ import pytest
 import json
 from app import app
 
+# Define test users data
+test_users = {
+    'user1': 'password1',  # Add more test users if needed
+}
+
 @pytest.fixture
 def client():
     app.testing = True
