@@ -5,10 +5,10 @@ from flask import Blueprint, Flask, request, jsonify
 login_bp = Blueprint('log-in', __name__)
 
 # Mock user data (replace this with a database later)
-users = {
-    'user1': {'username': 'user1', 'password': 'password1'},
-    'user2': {'username': 'user2', 'password': 'password2'}
-}
+#users = {
+#    'user1': {'username': 'user1', 'password': 'password1'},
+#    'user2': {'username': 'user2', 'password': 'password2'}
+#}
 
 # Login route with validations
 @login_bp.route('/login', methods=['POST'])
