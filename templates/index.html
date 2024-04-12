@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fuel Management System</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
   <style>
     .button-container {
       display: flex;
@@ -84,11 +84,11 @@
     </form>
   </div>
 
-  <div class="button-container">
+  <!--<div class="button-container">
     <a href="/profile-page" class="button">Profile Page</a>
     <a href="fuelQuoteHistory.html" class="button">Fuel Quote History</a>
     <a href="fuelQuoteForm.html" class="button">Fuel Quote Form</a>
-  </div>
+  </div>-->
 
   <div id="profilePage" style="display: none;">
     <h2>Client Profile Management</h2>
