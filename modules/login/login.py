@@ -1,5 +1,4 @@
 from flask import Blueprint, Flask, request, jsonify
-from flask_bcrypt import bcrypt
 
 #app = Flask(__name__)
 
@@ -31,8 +30,10 @@ def login():
         return jsonify({'error': 'Username and password must be less than 50 characters long'}), 400
     
     # Perform authentication
-    user = User.query.filter_by(username=username).first()
-    if user and bcrypt.check_password_hash(user.password, password):
+    if username in users and users[username]['password'] == password:
         return jsonify({'message': 'Login successful'}), 200
     else:
         return jsonify({'error': 'Invalid username or password'}), 401
+
+if __name__ == '__main__':
+    login_bp.run(debug=True)
