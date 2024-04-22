@@ -65,7 +65,7 @@ def login():
     if request.method == 'GET':
         return render_template('index.html')
     elif request.method == 'POST':
-        print("bello")
+        print("hello")
         # username = request.get_json('username')
         # password = request.get_json('password')
         username = request.form.get('username')
@@ -110,7 +110,7 @@ def logout():
     # Clear session data
     logout_user()
     flash('You have been logged out.', 'success')
-    return redirect(url_for('login')) # May need to make this homepage.html
+    return render_template('homepage.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
