@@ -27,8 +27,17 @@ def quoteForm(user_id):
             return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr, rate=rate), 400
         else:
         #Case where the form is valid and a quote is generated. The quote will be stored in the Database when it is finally implemented
-            due = float(request.form['gallons']) * float(request.form['pricing'])
-            format_num = "{:.2f}".format(due)
+            requested_gallons = float(request.form['gallons'])
+            current_price_per_gallon = 1.50
+            location_factor = 0.02 if getUserState(user_id).lower() == 'tx' else 0.04
+            rate_history_factor = 0.01 if has_previous_quotes(user_id) else 0
+            gallons_requested_factor = 0.02 if requested_gallons > 1000 else 0.03
+            company_profit_factor = 0.10
+            margin = current_price_per_gallon * (location_factor - rate_history_factor + gallons_requested_factor + company_profit_factor)
+            suggested_price_per_gallon = 1.50 + margin
+            total_due = requested_gallons * suggested_price_per_gallon
+            # due = float(request.form['gallons']) * float(request.form['pricing'])
+            format_num = "{:.2f}".format(total_due)
             result = "Total amount due: $" + str(format_num)
             new_quote = FuelQuoteForm(
                 UserID = user_id,
@@ -41,6 +50,16 @@ def quoteForm(user_id):
             db.session.add(new_quote)
             db.session.commit()
             return render_template('fuelQuoteForm.html', user=user_id, result=result, userAddr=userAddr, rate=rate), 200
+        
+def getUserState(user_id):
+    user_profile = Profile.query.filter_by(UserID=user_id).first()
+    # If a profile exists, return the state, otherwise return None or a default value
+    return user_profile.State if user_profile else None
+
+def has_previous_quotes(user_id):
+    previous_quotes = FuelQuoteForm.query.filter_by(UserID=user_id).first()
+    # If any previous quotes exist, return True, otherwise return False
+    return True if previous_quotes else False
         
 @quote_bp.route('/fuelQuoteHistory/<int:user_id>', methods=['GET'])
 def get_fuel_quote_history(user_id):
