@@ -170,6 +170,34 @@
                 getQuoteButton.disabled = !isFilled;
                 submitButton.disabled = !isFilled;
             }
+            
+            // Set up event listener for Get Quote button
+            getQuoteButton.addEventListener('click', function() {
+                const gallons = parseFloat(document.getElementById('gallons').value.trim());
+                const deliveryAddress = document.getElementById('address').value.trim();
+                const deliveryDate = document.getElementById('delivery').value.trim();
+
+                // Make AJAX call to get the quote
+                fetch('/get-quote', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        gallons: gallons,
+                        delivery_date: deliveryDate,
+                        address: deliveryAddress
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    suggestedPriceInput.value = data.suggested_price;
+                    totalAmountInput.value = data.total_amount;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
         
             // Set up event listeners for input fields
             ['input', 'change'].forEach(event => {
