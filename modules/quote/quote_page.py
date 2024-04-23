@@ -38,7 +38,7 @@ def quoteForm(user_id):
             total_due = requested_gallons * suggested_price_per_gallon
             # due = float(request.form['gallons']) * float(request.form['pricing'])
             format_num = "{:.2f}".format(total_due)
-            result = "Total amount due: $" + str(format_num)
+            result = "$" + str(format_num)
             new_quote = FuelQuoteForm(
                 UserID = user_id,
                 GallonsRequested = request.form['gallons'],
