@@ -24,39 +24,8 @@ function hideEditForm() {
     document.getElementById('profileDisplay').style.display = 'block';
 }
 
-function saveProfile() {
-    const userId = getCurrentUserId();
-    const profileData = {
-        fullName: document.getElementById('fullName').value,
-        address1: document.getElementById('address1').value,
-        address2: document.getElementById('address2').value,
-        city: document.getElementById('city').value,
-        state: document.getElementById('state').value,
-        zipcode: document.getElementById('zipcode').value,
-    };
-    const url = `/profile/${userId}`;
 
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(profileData),
-    })
-    .then(response => response.json())
-    .then(data => {
-        console.log('Success:', data);
-        // fetchAndDisplayProfile();
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    }); 
-
-
-
-}
-
- function fetchAndDisplayProfile() {
+function fetchAndDisplayProfile() {
     const userId = getCurrentUserId(); // Assume this function gets the current user's ID
     const url = `profile/${userId}`;
     fetch(url)
@@ -80,6 +49,38 @@ function saveProfile() {
         console.error('Error:', error);
     });
 }
+
+function saveProfile() {
+    const userId = getCurrentUserId();
+    const profileData = {
+        fullName: document.getElementById('fullName').value,
+        address1: document.getElementById('address1').value,
+        address2: document.getElementById('address2').value,
+        city: document.getElementById('city').value,
+        state: document.getElementById('state').value,
+        zipcode: document.getElementById('zipcode').value,
+    };
+    const url = `/profile/${userId}`;
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(profileData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:');
+        hideEditForm();
+        fetchAndDisplayProfile();
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    }); 
+
+}
+
 
 function getCurrentUserId() {
     return userId; 

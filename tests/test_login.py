@@ -1,6 +1,7 @@
 import pytest
 import json
-from app import app
+from app import app, db
+from models import User
 
 # Define test user data
 TEST_USERNAME = 'test_user'
