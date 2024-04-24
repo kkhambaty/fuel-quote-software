@@ -64,11 +64,11 @@ def has_previous_quotes(user_id):
 @quote_bp.route('/fuelQuoteHistory/<int:user_id>', methods=['GET'])
 def get_fuel_quote_history(user_id):
     # query database to retrieve fuel quote history data
-    fuel_quote_history = FuelQuoteForm.query.filter_by(UserID=user_id)
+    fuel_quote_history = FuelQuoteForm.query.filter_by(UserID=user_id).all()
 
     # check if there is any data retrieved 
     if not fuel_quote_history:
-        return render_template('fuelQuoteHistory.html', fuelQuoteHistory=[])
+        return render_template('fuelQuoteHistory.html', fuel_quote_history=[])
     
     # pass the fuel quote history to the template
     return render_template('fuelQuoteHistory.html', fuel_quote_history=fuel_quote_history)
