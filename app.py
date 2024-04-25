@@ -65,24 +65,28 @@ def login():
     if request.method == 'GET':
         return render_template('index.html')
     elif request.method == 'POST':
-        print("hello")
-        # username = request.get_json('username')
-        # password = request.get_json('password')
-        username = request.form.get('username')
-        password = request.form.get('password')
-        user = User.query.filter_by(username=username).first()
-        # print("username: ", username)
-        # print("user: ", str(user))
-        # print("password: ", password)
-        
-        if bcrypt.check_password_hash(user.password, password):
-            # Logic to log the user in
-            login_user(user)
-            return redirect(url_for('home'))
-        else:
-            flash('Invalid username or password')
-            return redirect(url_for('logi'))
-        # else:
+        try:
+            print("hello")
+            # username = request.get_json('username')
+            # password = request.get_json('password')
+            username = request.form.get('username')
+            password = request.form.get('password')
+            user = User.query.filter_by(username=username).first()
+            # print("username: ", username)
+            # print("user: ", str(user))
+            # print("password: ", password)
+            
+            if user and bcrypt.check_password_hash(user.password, password):
+                # Logic to log the user in
+                login_user(user)
+                return redirect(url_for('home'))
+            else:
+                flash('Invalid username or password')
+                return redirect(url_for('login'))
+        except Exception as e:
+            print(e)
+            raise
+            # else:
         #     return 'Invalid username or password'
     
     # If GET request, render login form
