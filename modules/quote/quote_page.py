@@ -22,7 +22,8 @@ def quoteForm(user_id):
         return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr, rate=rate), 200
     elif request.method == 'POST':
         #Case where the form is submitted with invalid fields. A flash message is displayed to notify the user
-        if (not request.form['gallons'] or float(request.form['gallons']) <= 0) or (not request.form['address']) or (not request.form['delivery']) or (not request.form['pricing'] or float(request.form['pricing']) <= 0.00):
+        # if (not request.form['gallons'] or float(request.form['gallons']) <= 0) or (not request.form['address']) or (not request.form['delivery']) or (not request.form['pricing'] or float(request.form['pricing']) <= 0.00):
+        if (not request.form['gallons'] or float(request.form['gallons']) <= 0) or (not request.form['address']) or (not request.form['delivery']):
             flash('ERROR: Missing or invalid form data. Quote not generated.', 'error')
             return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr, rate=rate), 400
         else:
@@ -44,12 +45,12 @@ def quoteForm(user_id):
                 GallonsRequested = request.form['gallons'],
                 DeliveryAddress = request.form['address'],
                 DeliveryDate = request.form['delivery'],
-                PricePerGallon = rate,
+                PricePerGallon = suggested_price_per_gallon,
                 TotalAmountDue = format_num
             )
             db.session.add(new_quote)
             db.session.commit()
-            return render_template('fuelQuoteForm.html', user=user_id, result=result, userAddr=userAddr, rate=rate), 200
+            return render_template('fuelQuoteForm.html', user=user_id, result=result, userAddr=userAddr, suggested_price_per_gallon="{:.2f}".format(suggested_price_per_gallon), rate=rate), 200
         
 def getUserState(user_id):
     user_profile = Profile.query.filter_by(UserID=user_id).first()
