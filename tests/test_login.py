@@ -3,9 +3,6 @@ import json
 from app import app, db
 from models import User
 
-# Define test user data
-TEST_USERNAME = 'test_user'
-TEST_PASSWORD = 'test_password'
 
 @pytest.fixture
 def user():
@@ -18,14 +15,14 @@ def user():
     db.session.delete(new_user)
     db.session.commit()
 
-def test_valid_login(client):
+def test_valid_login(client, user):
     new_user = user
     client = app.test_client()
     response = client.post('/logi', data={'username': 'testuser', 'password': 'testpass'}, follow_redirects=True)
     assert response.status_code == 200
     assert b'Welcome, testuser' in response.data
 
-def test_invalid_login(client):
+def test_invalid_login(client, user):
     new_user = user
     client = app.test_client()
     response = client.post('/logi', data={'username': 'testuser', 'password': 'wrong_password'}, follow_redirects=True)
