@@ -2,12 +2,11 @@ import pytest
 import json
 from app import app, db
 from models import User
-from werkzeug.security import generate_password_hash
 
 
 @pytest.fixture
 def user():
-    new_user = User(username='testuser', password=generate_password_hash('testpass'))
+    new_user = User(username='testuser', password='testpass')
     db.session.add(new_user)
     db.session.commit()
 
