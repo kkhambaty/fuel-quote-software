@@ -59,8 +59,29 @@
 </head>
 <body>
   <div class="companyName">Fuel It Up<span class="copyright">&copy;</span></div>
+  <!-- {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %} -->
 
   <div id="loginPage">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size: smaller;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <h2 class="login">Login</h2>
     <form id="loginForm" action="/logi" method="POST" > 
       <input type="text" id="username" name="username" placeholder="Username" required>
