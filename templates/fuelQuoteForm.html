@@ -105,6 +105,15 @@
         </nav>
     </header>
     <h1 class="formTitle">Fuel Quote Form</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert" style="font-size: smaller;">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% endif %}
+        {% endwith %}
 
     <!--The fuel quote form. No back-end functionality yet so the pricing rate and user delivery address are hardcoded examples-->
     <div id="quoteForm">

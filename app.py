@@ -127,14 +127,15 @@ def register():
         hashed_password = bcrypt.generate_password_hash(password).decode('utf-8')
         user_exists = User.query.filter_by(username=username).first() is not None
         if user_exists:
-            return "Username already exists. Please choose a different one." #, render_template('index.html')
+            flash('Username already exists. Please choose a different one')
+            return redirect(url_for('register'))
         # Store the username and hashed password in the users dictionary
         # users[username] = hashed_password # Shouldn't this be adding to the db?
         new_user = User(username=username, password=hashed_password)
         db.session.add(new_user)
         db.session.commit()
         db.session.rollback()
-        
+        flash('Registration was successful. Create profile after logging in.')
         return redirect(url_for('login')) # Might need to make this index? Registration and login are both in index
 
     # If GET request, render registration form which is in index.html

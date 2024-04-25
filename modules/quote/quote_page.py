@@ -76,6 +76,9 @@ def get_fuel_quote_history(user_id):
 
 def getUserAddr(user_id):
     retrieved_profile = Profile.query.filter_by(UserID=user_id).first()
+    if not retrieved_profile:
+        flash('You must create your profile before requesting a fuel quote')
+        return render_template('profilePage.html', user_id=user_id)
     return retrieved_profile.Address1 + " " + retrieved_profile.Address2 + " " + retrieved_profile.City + ", " + retrieved_profile.State + " " + retrieved_profile.Zipcode
 
 def getPricingRate(user_id):
