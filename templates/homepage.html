@@ -191,7 +191,7 @@
             while also factoring in your profit margin.<br>With our technology,
             navigate pricing confidently, <br>fostering stronger partnerships <br>for success.</p>
         <a href="/quote-page">
-            <button type="submit" class="hpbtn">Get a free quote &nbsp; &#10148;</button>
+            <button id="get-quote-btn" type="submit" class="hpbtn">Get a free quote &nbsp; &#10148;</button>
         </a>
 
     </div>
@@ -344,6 +344,24 @@
             }
           });
         }
+
+        // AJAX call to pricing module
+        $('#get-quote-btn').click(function() {
+            var formData = $('form').serialize();
+            $.ajax({
+                type: 'POST',
+                url: '/quote-page',
+                data: formData,
+                success: function(data) {
+                    $('#suggested-price').text(data.suggested_price);
+                    $('#total-amount').text(data.total_amount);
+                    $('#quote-results').show();
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                }
+            });
+        });
       </script>
 
 </body>
