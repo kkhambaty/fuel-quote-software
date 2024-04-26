@@ -15,7 +15,7 @@
 
                     $.ajax({
                         type: 'POST',
-                        url: '/pricing-module',  // Endpoint for pricing calculation
+                        url: "{{ url_for('pricing.pricingModule', user_id=user)}}",  // Endpoint for pricing calculation
                         data: formData,  // Send serialized form data
                         success: function(response) {
                             // Update form fields with the calculated values
