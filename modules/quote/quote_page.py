@@ -5,10 +5,6 @@ from database import db
 
 quote_bp = Blueprint('quote', __name__)
 
-#This pricing rate is a substitute until the pricing module is created
-pricing_rate = {
-    1: { 'rate': '4.00'}
-}
 
 @quote_bp.route('/<int:user_id>', methods=['GET', 'POST'])
 def quoteForm(user_id):
@@ -16,52 +12,29 @@ def quoteForm(user_id):
     if not user_id:
         return 'User ID does not exist or is not recognized', 404
     userAddr = getUserAddr(user_id)
-    rate = getPricingRate(user_id)
     #Case where the quote form is correctly rendered with the user's profile address and current fuel rate
     if request.method == 'GET':
-        return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr, rate=rate), 200
+        return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr), 200
     elif request.method == 'POST':
         #Case where the form is submitted with invalid fields. A flash message is displayed to notify the user
         # if (not request.form['gallons'] or float(request.form['gallons']) <= 0) or (not request.form['address']) or (not request.form['delivery']) or (not request.form['pricing'] or float(request.form['pricing']) <= 0.00):
         if (not request.form['gallons'] or float(request.form['gallons']) <= 0) or (not request.form['address']) or (not request.form['delivery']):
             flash('ERROR: Missing or invalid form data. Quote not generated.', 'error')
-            return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr, rate=rate), 400
+            return render_template('fuelQuoteForm.html', user=user_id, userAddr=userAddr), 400
         else:
         #Case where the form is valid and a quote is generated. The quote will be stored in the Database when it is finally implemented
-            requested_gallons = float(request.form['gallons'])
-            current_price_per_gallon = 1.50
-            location_factor = 0.02 if getUserState(user_id).lower() == 'tx' else 0.04
-            rate_history_factor = 0.01 if has_previous_quotes(user_id) else 0
-            gallons_requested_factor = 0.02 if requested_gallons > 1000 else 0.03
-            company_profit_factor = 0.10
-            margin = current_price_per_gallon * (location_factor - rate_history_factor + gallons_requested_factor + company_profit_factor)
-            suggested_price_per_gallon = 1.50 + margin
-            delivery_date = request.form['delivery']
-            total_due = requested_gallons * suggested_price_per_gallon
-            # due = float(request.form['gallons']) * float(request.form['pricing'])
-            format_num = "{:.2f}".format(total_due)
-            result = "$" + str(format_num)
             new_quote = FuelQuoteForm(
                 UserID = user_id,
                 GallonsRequested = request.form['gallons'],
                 DeliveryAddress = request.form['address'],
                 DeliveryDate = request.form['delivery'],
-                PricePerGallon = suggested_price_per_gallon,
-                TotalAmountDue = format_num
+                PricePerGallon = request.form['pricing'],
+                TotalAmountDue = request.form['totalAmount']
             )
             db.session.add(new_quote)
             db.session.commit()
-            return render_template('fuelQuoteForm.html', user=user_id, result=result, gallons=requested_gallons, delivery=delivery_date, userAddr=userAddr, suggested_price_per_gallon="{:.2f}".format(suggested_price_per_gallon), rate=rate), 200
-        
-def getUserState(user_id):
-    user_profile = Profile.query.filter_by(UserID=user_id).first()
-    # If a profile exists, return the state, otherwise return None or a default value
-    return user_profile.State if user_profile else None
+            return render_template('fuelQuoteForm.html', user=user_id, result=request.form['totalAmount'], userAddr=request.form['address'], suggested_price_per_gallon=request.form['pricing']), 200
 
-def has_previous_quotes(user_id):
-    previous_quotes = FuelQuoteForm.query.filter_by(UserID=user_id).first()
-    # If any previous quotes exist, return True, otherwise return False
-    return True if previous_quotes else False
         
 @quote_bp.route('/fuelQuoteHistory/<int:user_id>', methods=['GET'])
 def get_fuel_quote_history(user_id):
@@ -82,5 +55,3 @@ def getUserAddr(user_id):
         return render_template('profilePage.html', user_id=user_id)
     return retrieved_profile.Address1 + " " + retrieved_profile.Address2 + " " + retrieved_profile.City + ", " + retrieved_profile.State + " " + retrieved_profile.Zipcode
 
-def getPricingRate(user_id):
-    return pricing_rate[1]['rate']
