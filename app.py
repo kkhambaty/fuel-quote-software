@@ -16,7 +16,7 @@ app.secret_key = 'your_secret_key'
 bcrypt = Bcrypt(app)
 
 # new mysql db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Fila10**@localhost/fuelQuoteAppData'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/fuelQuoteAppData'
 app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 app.config['TESTING'] = True
