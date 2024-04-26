@@ -5,6 +5,37 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Fuel Quote Form</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                // AJAX event handler for the pricing calculation
+                $('#displayQuote').click(function(e) {
+                    e.preventDefault();  // Prevent default form submission
+                    var formData = $('#fuelQuoteForm').serialize();  // Serialize form data
+
+                    $.ajax({
+                        type: 'POST',
+                        url: '/pricing-module',  // Endpoint for pricing calculation
+                        data: formData,  // Send serialized form data
+                        success: function(response) {
+                            // Update form fields with the calculated values
+                            $('#pricing').val(response.pricing_rate);  // Update pricing rate
+                            $('#totalAmount').val(response.total_due);  // Update total amount
+
+                            $('#flashMsg').text('Pricing calculated successfully');  // Optional message
+                        },
+                        error: function(xhr, status, error) {
+                            console.error('Error:', error);  // Handle AJAX errors
+                        }
+                    });
+                });
+
+                // Default form submission
+                $('#getQuote').click(function() {
+                    $('#fuelQuoteForm').submit();  // Trigger default form submission
+                });
+            });
+        </script>
         <style>
             label {
                 color:#032d39;
@@ -161,63 +192,6 @@
             This quote will be saved to your "History" page so that you can view it along with other fuel quotes you have generated before.<br>
             Decide a quantity that fits your company's needs and budget.
     </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('fuelQuoteForm');
-            const getQuoteButton = document.getElementById('getQuote');
-            const submitButton = document.getElementById('submitQuote');
-        
-            // Function to check if required inputs are filled
-            function checkInputs() {
-                const gallons = document.getElementById('gallons').value.trim();
-                const deliveryAddress = document.getElementById('address').value.trim();
-                const deliveryDate = document.getElementById('delivery').value.trim();
-
-                const isFilled = gallons && deliveryDate && deliveryAddress;
-        
-                // Enable or disable buttons based on the input status
-                getQuoteButton.disabled = !isFilled;
-                submitButton.disabled = !isFilled;
-            }
-            
-            // Set up event listener for Get Quote button
-            getQuoteButton.addEventListener('click', function() {
-                const gallons = parseFloat(document.getElementById('gallons').value.trim());
-                const deliveryAddress = document.getElementById('address').value.trim();
-                const deliveryDate = document.getElementById('delivery').value.trim();
-
-                // Make AJAX call to get the quote
-                fetch('/get-quote', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        gallons: gallons,
-                        delivery_date: deliveryDate,
-                        address: deliveryAddress
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    suggestedPriceInput.value = data.suggested_price;
-                    totalAmountInput.value = data.total_amount;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            });
-        
-            // Set up event listeners for input fields
-            ['input', 'change'].forEach(event => {
-                document.getElementById('gallons').addEventListener(event, checkInputs);
-                document.getElementById('delivery').addEventListener(event, checkInputs);
-                document.getElementById('address').addEventListener(event, checkInputs);
-            });
-            // Initial check on page load
-            checkInputs();
-        });
-        </script>
         
 </body>
 </html>

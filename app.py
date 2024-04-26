@@ -2,6 +2,7 @@ from flask import Flask, flash, jsonify, request, render_template, session, redi
 from modules.login.login import login_bp
 from modules.profile.profile_page import profile_bp 
 from modules.quote.quote_page import quote_bp
+from modules.pricing.pricing import pricing_bp
 from flask_sqlalchemy import SQLAlchemy
 from database import db
 from flask_bcrypt import Bcrypt
@@ -15,7 +16,7 @@ app.secret_key = 'your_secret_key'
 bcrypt = Bcrypt(app)
 
 # new mysql db
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Password123@localhost/fuelQuoteAppData'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:Fila10**@localhost/fuelQuoteAppData'
 app.config['SQLALCHEMY_ECHO'] = True
 db.init_app(app)
 app.config['TESTING'] = True
@@ -27,6 +28,7 @@ login_manager.login_view = 'login'
 app.register_blueprint(profile_bp, url_prefix='/profile')
 app.register_blueprint(quote_bp, url_prefix='/quote')
 app.register_blueprint(login_bp, url_prefix='/logi')
+app.register_blueprint(pricing_bp, url_prefix='/pricing')
 
 @app.route('/home')
 @login_required
@@ -52,6 +54,11 @@ def profile_page():
 @login_required
 def quote_page():
     return redirect('/quote/' + str(current_user.ID))
+
+@app.route('/pricing-module')
+@login_required
+def pricing_mod():
+    return redirect('/pricing/' + str(current_user.ID))
 
 @app.route('/history-page')
 @login_required
