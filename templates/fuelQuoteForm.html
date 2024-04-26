@@ -8,6 +8,19 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script>
             $(document).ready(function() {
+                function updateButtonState() {
+                    var gallons = $('#gallons').val();
+                    var delivery = $('#delivery').val();
+                    var isDisabled = !gallons || !delivery;  // Check if either field is empty
+                    $('#displayQuote').prop('disabled', isDisabled);  // Enable/disable the button
+                }
+
+                // Attach change and keyup event handlers to update button state
+                $('#gallons, #delivery').on('change keyup', updateButtonState);
+
+                // Initial check to set the correct button state when the page loads
+                updateButtonState();
+
                 // AJAX event handler for the pricing calculation
                 $('#displayQuote').click(function(e) {
                     e.preventDefault();  // Prevent default form submission
@@ -156,7 +169,7 @@
                 <input type="text" id="address" name="address" value="{{userAddr}}" readonly>
             <br>
             <label for="delivery" title="When you would like us to deliver your fuel">Delivery Date: </label>
-                <input type="date" id="delivery" name="delivery">
+                <input type="date" id="delivery" name="delivery" required>
             <br>
             <label for="pricing" title="Suggested pricing rate per gallon. Determined by pricing module. For demo purposes this is $4.00">Suggested Price/Gallon: </label>
                 <input type="number" step="0.01" id="pricing" name="pricing" value="{{suggested_price_per_gallon}}" readonly>
@@ -164,7 +177,7 @@
             <label for="totalAmount"> Total Amount Due:</label>
                 <input type="text" id="totalAmount" name="totalAmount" readonly value=" {{result}}">
             <br>
-            <button type="button" id="displayQuote">Get Quote</button>
+            <button type="button" id="displayQuote" disabled>Get Quote</button>
             <button type="submit" id="getQuote">Submit</button>
              
            
